@@ -11,8 +11,8 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- ==========================================
 
 CREATE TABLE Publisher (
-    Publisher_id INT PRIMARY KEY AUTO_INCREMENT,
-    Name VARCHAR(255) NOT NULL,
+    PublisherID INT PRIMARY KEY AUTO_INCREMENT,
+    PublisherName VARCHAR(255) NOT NULL,
     YearOfPublication YEAR
 );
 
@@ -34,18 +34,18 @@ CREATE TABLE Author (
 -- ==========================================
 
 CREATE TABLE Readers (
-    User_ID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT PRIMARY KEY AUTO_INCREMENT,
     FirstName VARCHAR(100) NOT NULL,
     LastName VARCHAR(100),
     Email VARCHAR(255) UNIQUE,
-    Phone_no VARCHAR(20),
+    PhoneNumber VARCHAR(20),
     Address TEXT,
     JoinDate DATE DEFAULT (CURRENT_DATE)
 );
 
 CREATE TABLE Staff (
-    Staff_id INT PRIMARY KEY AUTO_INCREMENT,
-    Name VARCHAR(255) NOT NULL,
+    StaffID INT PRIMARY KEY AUTO_INCREMENT,
+    StaffName VARCHAR(255) NOT NULL,
     LoginID VARCHAR(50) UNIQUE NOT NULL,
     Password VARCHAR(255) NOT NULL, -- In production, use HASHED passwords
     CanManageDigital BOOLEAN DEFAULT FALSE
@@ -61,9 +61,9 @@ CREATE TABLE Books (
     Edition VARCHAR(50),
     Price DECIMAL(10, 2),
     BookType ENUM('Physical', 'Digital', 'Both') DEFAULT 'Physical',
-    Publisher_id INT,
+    PublisherID INT,
     CategoryID INT,
-    FOREIGN KEY (Publisher_id) REFERENCES Publisher(Publisher_id),
+    FOREIGN KEY (PublisherID) REFERENCES Publisher(PublisherID),
     FOREIGN KEY (CategoryID) REFERENCES Category(CategoryID)
 );
 
@@ -83,15 +83,15 @@ CREATE TABLE Book_Authors (
 CREATE TABLE Loans (
     LoanID INT PRIMARY KEY AUTO_INCREMENT,
     ISBN VARCHAR(20) NOT NULL,
-    User_ID INT NOT NULL,
-    Staff_id INT NOT NULL,
+    UserID INT NOT NULL,
+    StaffID INT NOT NULL,
     IssueDate DATE NOT NULL,
     DueDate DATE NOT NULL,
     ReturnDate DATE, 
     Status ENUM('Borrowed', 'Returned', 'Overdue') DEFAULT 'Borrowed',
     FOREIGN KEY (ISBN) REFERENCES Books(ISBN),
-    FOREIGN KEY (User_ID) REFERENCES Readers(User_ID),
-    FOREIGN KEY (Staff_id) REFERENCES Staff(Staff_id)
+    FOREIGN KEY (UserID) REFERENCES Readers(UserID),
+    FOREIGN KEY (StaffID) REFERENCES Staff(StaffID)
 );
 
 -- ==========================================
@@ -102,7 +102,7 @@ CREATE TABLE DigitalAssets (
     AssetID INT PRIMARY KEY AUTO_INCREMENT,
     ISBN VARCHAR(20) NOT NULL,
     FileFormat ENUM('PDF', 'EPUB', 'MOBI', 'MP3') NOT NULL,
-    FileSize_MB DECIMAL(10, 2),
+    FileSizeMB DECIMAL(10, 2),
     DownloadURL VARCHAR(512),
     AccessLevel ENUM('Free', 'MemberOnly', 'Premium') DEFAULT 'MemberOnly',
     FOREIGN KEY (ISBN) REFERENCES Books(ISBN) ON DELETE CASCADE
@@ -110,10 +110,10 @@ CREATE TABLE DigitalAssets (
 
 CREATE TABLE DigitalAccessLogs (
     AccessID INT PRIMARY KEY AUTO_INCREMENT,
-    User_ID INT NOT NULL,
+    UserID INT NOT NULL,
     AssetID INT NOT NULL,
     AccessTimestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    IP_Address VARCHAR(45),
-    FOREIGN KEY (User_ID) REFERENCES Readers(User_ID),
+    IPAddress VARCHAR(45),
+    FOREIGN KEY (UserID) REFERENCES Readers(UserID),
     FOREIGN KEY (AssetID) REFERENCES DigitalAssets(AssetID)
 );
