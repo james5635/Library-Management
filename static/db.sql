@@ -10,20 +10,19 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- 2. CORE ENTITIES (Lookup Tables)
 -- ==========================================
 
-CREATE TABLE Publisher (
+CREATE TABLE Publishers (
     PublisherID INT PRIMARY KEY AUTO_INCREMENT,
     PublisherName VARCHAR(255) NOT NULL,
     YearOfPublication YEAR
 );
 
-CREATE TABLE Category (
+CREATE TABLE Categories (
     CategoryID INT PRIMARY KEY AUTO_INCREMENT,
     CategoryName VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE Author (
+CREATE TABLE Authors (
     AuthorID INT PRIMARY KEY AUTO_INCREMENT,
-    AuthNo VARCHAR(50), 
     FirstName VARCHAR(100),
     LastName VARCHAR(100),
     Biography TEXT
@@ -43,7 +42,7 @@ CREATE TABLE Readers (
     JoinDate DATE DEFAULT (CURRENT_DATE)
 );
 
-CREATE TABLE Staff (
+CREATE TABLE Staffs (
     StaffID INT PRIMARY KEY AUTO_INCREMENT,
     StaffName VARCHAR(255) NOT NULL,
     LoginID VARCHAR(50) UNIQUE NOT NULL,

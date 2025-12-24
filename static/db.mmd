@@ -2,7 +2,83 @@
 title: Library Management System
 ---
 erDiagram
-    Publisher {
-        int Publisher_id
-
+    Publishers {
+        int PublisherID PK
+        string PublisherName
+        int YearOfPublication
     }
+    Categories {
+        int CategoryID PK
+        string CategoryName
+    }
+    Authors {
+        int AuthorID PK
+        string FirstName
+        string LastName
+        string Biography
+    }
+    Readers {
+        int UserID PK
+        string FirstName
+        string LastName
+        string Email UK
+        string PhoneNumber 
+        string Address
+        string JoinDate
+    }
+    Staffs {
+        int StaffID PK
+        string StaffName
+        sring LoginID UK
+        string Password
+        bool CanManageDigital
+    }
+    Books {
+        string ISBN PK
+        string Title
+        string Edition
+        decimal Price
+        enum BookType
+        int PublisherID FK
+        int CategoryID FK
+    }
+    Book_Authors {
+        string ISBN PK,FK
+        int AuthorID PK,FK
+    }
+    Loans {
+        int LoanID PK
+        string ISBN FK
+        int UserID FK
+        int StaffID FK
+        string IssueDate
+        string DueDate
+        string ReturnDate 
+        enum Status
+    }
+    DigitalAssets {
+        int AssetID PK
+        string ISBN FK
+        enumFileFormat 
+        decimal FileSizeMB 
+        stringDownloadURL
+        enum AccessLevel
+    }
+    DigitalAccessLogs {
+        int AccessID PK
+        int UserID FK
+        int AssetID FK
+        string AccessTimestamp
+        string IPAddress
+    }
+
+    Books }o--o| Publishers : publish
+    Books }o--o| Categories : categorize
+    Books }o--o{ Authors : write
+    Loans }o--|| Books : reference
+    Loans }o--|| Readers : borrow
+    Loans }o--|| Staffs : process
+    DigitalAssets }o--|| Books : include
+    DigitalAccessLogs }o--|| Readers : access
+    DigitalAccessLogs }o--|| DigitalAssets : access
+
