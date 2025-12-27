@@ -1,0 +1,58 @@
+@startuml library_management
+
+left to right direction
+
+actor "Student" as S
+actor "Librarian" as L
+
+package "Library Management System" {
+    usecase "Login" as UC1
+    usecase "Search for Book" as UC2
+    usecase "Reserve Book" as UC3
+    usecase "Check Account/History" as UC4
+
+    usecase "Issue Book" as UC5
+    usecase "Return Book" as UC6
+    usecase "Calculate/Pay Fine" as UC7
+
+    usecase "Manage Books (CRUD)" as UC8
+    usecase "Manage Members (CRUD)" as UC9
+    usecase "Generate Reports" as UC10
+
+    usecase "Check Availability" as UC11
+    usecase "Verify Membership" as UC12
+}
+
+' Student Relationships
+S --> UC1
+S --> UC2
+S --> UC3
+S --> UC4
+
+' Librarian Relationships
+' L --> UC1
+' L --> UC2
+' L --> UC5
+' L --> UC6
+' L --> UC8
+' L --> UC9
+' L --> UC10
+
+UC1 <-- L
+UC2 <-- L
+UC5 <-- L
+UC6 <-- L
+UC8 <-- L
+UC9 <-- L
+UC10 <-- L
+
+
+' Include Relationships (Mandatory)
+UC3 ..> UC1 : <<include>>
+UC5 ..> UC11 : <<include>>
+UC5 ..> UC12 : <<include>>
+
+' Extend Relationships (Optional/Conditional)
+UC7 ..> UC6 : <<extend>>
+
+@enduml
