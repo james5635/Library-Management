@@ -1,0 +1,1091 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1920"
+   height="1080"
+   viewBox="0 0 1920 1080"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   sodipodi:docname="DFD 0.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="0.76750548"
+     inkscape:cx="1112.0442"
+     inkscape:cy="517.91161"
+     inkscape:window-width="1366"
+     inkscape:window-height="740"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g89" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g91"
+       transform="matrix(2.4781488,0,0,2.4781488,28.612268,268.83755)">
+      <g
+         data-cell-id="0"
+         id="g90">
+        <g
+           data-cell-id="1"
+           id="g89">
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-10"
+             id="g10">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g3">
+              <path
+                 d="M 440,28 V 17 q 0,-9 -9,-9 H 329 q -9,0 -9,9 v 11"
+                 fill="#cdeb8b"
+                 stroke="#36393d"
+                 stroke-miterlimit="10"
+                 pointer-events="all"
+                 id="path1" />
+              <path
+                 d="m 320,28 v 121 q 0,9 9,9 h 102 q 9,0 9,-9 V 28"
+                 fill="#ffffff"
+                 stroke="#36393d"
+                 stroke-miterlimit="10"
+                 pointer-events="all"
+                 id="path2" />
+              <path
+                 d="M 320,28 H 440"
+                 fill="none"
+                 stroke="#36393d"
+                 stroke-miterlimit="10"
+                 pointer-events="all"
+                 id="path3" />
+            </g>
+            <g
+               id="g5">
+              <g
+                 fill="#000000"
+                 font-family="Helvetica"
+                 text-anchor="middle"
+                 font-size="12px"
+                 id="g4">
+                <text
+                   x="380"
+                   y="23"
+                   id="text3">0</text>
+              </g>
+            </g>
+            <g
+               data-cell-id="_UPdt_vAvN64_Ba1C41u-11"
+               id="g9">
+              <g
+                 transform="translate(0.5,0.5)"
+                 id="g6">
+                <rect
+                   x="320"
+                   y="28"
+                   width="120"
+                   height="130"
+                   fill="none"
+                   stroke="none"
+                   pointer-events="all"
+                   id="rect5" />
+              </g>
+              <g
+                 id="g8">
+                <g
+                   id="g7">
+                  <switch
+                     id="switch6">
+                    <foreignObject
+                       style="overflow: visible; text-align: left;"
+                       pointer-events="none"
+                       width="100%"
+                       height="100%"
+                       requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                      <xhtml:div
+                         style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 118px; height: 1px; padding-top: 93px; margin-left: 321px;">
+                        <xhtml:div
+                           style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                          <xhtml:div
+                             style="display: inline-block; font-size: 12px; font-family: Helvetica; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Library Management System</xhtml:div>
+                        </xhtml:div>
+                      </xhtml:div>
+                    </foreignObject>
+                    <text
+                       x="380"
+                       y="88.122421"
+                       fill="light-dark(#000000, #ffffff)"
+                       font-family="Helvetica"
+                       font-size="12px"
+                       text-anchor="middle"
+                       id="text6"><tspan
+                         sodipodi:role="line"
+                         id="tspan2"
+                         x="380"
+                         y="88.122421">Library Management</tspan><tspan
+                         sodipodi:role="line"
+                         x="380"
+                         y="103.12242"
+                         id="tspan3">System</tspan></text>
+                  </switch>
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-12"
+             id="g12">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g11">
+              <rect
+                 x="0"
+                 y="18"
+                 width="80"
+                 height="70"
+                 fill="#cce5ff"
+                 stroke="#36393d"
+                 pointer-events="all"
+                 id="rect10" />
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-13"
+             id="g16">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g13">
+              <rect
+                 x="10"
+                 y="38"
+                 width="60"
+                 height="30"
+                 fill="none"
+                 stroke="none"
+                 pointer-events="all"
+                 id="rect12" />
+            </g>
+            <g
+               id="g15">
+              <g
+                 id="g14">
+                <switch
+                   id="switch13">
+                  <foreignObject
+                     style="overflow: visible; text-align: left;"
+                     pointer-events="none"
+                     width="100%"
+                     height="100%"
+                     requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <xhtml:div
+                       style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 58px; height: 1px; padding-top: 53px; margin-left: 11px;">
+                      <xhtml:div
+                         style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                        <xhtml:div
+                           style="display: inline-block; font-size: 12px; font-family: Helvetica; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Client</xhtml:div>
+                      </xhtml:div>
+                    </xhtml:div>
+                  </foreignObject>
+                  <text
+                     x="40"
+                     y="57"
+                     fill="light-dark(#000000, #ffffff)"
+                     font-family="Helvetica"
+                     font-size="12px"
+                     text-anchor="middle"
+                     id="text13">Client</text>
+                </switch>
+              </g>
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-18"
+             id="g20">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g17">
+              <rect
+                 x="143"
+                 y="0"
+                 width="100"
+                 height="30"
+                 fill="none"
+                 stroke="none"
+                 pointer-events="all"
+                 id="rect16" />
+            </g>
+            <g
+               id="g19">
+              <g
+                 id="g18">
+                <switch
+                   id="switch17">
+                  <foreignObject
+                     style="overflow: visible; text-align: left;"
+                     pointer-events="none"
+                     width="100%"
+                     height="100%"
+                     requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <xhtml:div
+                       style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 98px; height: 1px; padding-top: 15px; margin-left: 144px;">
+                      <xhtml:div
+                         style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                        <xhtml:div
+                           style="display: inline-block; font-size: 12px; font-family: Helvetica; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Membership Info</xhtml:div>
+                      </xhtml:div>
+                    </xhtml:div>
+                  </foreignObject>
+                  <text
+                     x="193"
+                     y="19"
+                     fill="light-dark(#000000, #ffffff)"
+                     font-family="Helvetica"
+                     font-size="12px"
+                     text-anchor="middle"
+                     id="text17">Membership Info</text>
+                </switch>
+              </g>
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-19"
+             id="g22">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g21">
+              <path
+                 d="m 80,28 233.63,0.51"
+                 fill="none"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="stroke"
+                 id="path20" />
+              <path
+                 d="M 318.88,28.52 311.87,32 313.63,28.51 311.89,25 Z"
+                 fill="#000000"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="all"
+                 id="path21" />
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-20"
+             id="g24">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g23">
+              <path
+                 d="m 80,53 233.63,0.97"
+                 fill="none"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="stroke"
+                 id="path22" />
+              <path
+                 d="m 318.88,54 -7.01,3.47 1.76,-3.5 -1.73,-3.5 z"
+                 fill="#000000"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="all"
+                 id="path23" />
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-21"
+             id="g26">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g25">
+              <path
+                 d="m 80,78 233.63,0.97"
+                 fill="none"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="stroke"
+                 id="path24" />
+              <path
+                 d="m 318.88,79 -7.01,3.47 1.76,-3.5 -1.73,-3.5 z"
+                 fill="#000000"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="all"
+                 id="path25" />
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-26"
+             id="g28">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g27">
+              <path
+                 d="M 319.76,107.3 311,107.33 290,107 H 60 V 94.37"
+                 fill="none"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="stroke"
+                 id="path26" />
+              <path
+                 d="m 60,89.12 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                 fill="#000000"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="all"
+                 id="path27" />
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-28"
+             id="g30">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g29">
+              <path
+                 d="M 320,129 46.17,128 46.23,96.96"
+                 fill="none"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="stroke"
+                 id="path28" />
+              <path
+                 d="m 46.24,91.71 3.48,7 -3.49,-1.75 -3.51,1.74 z"
+                 fill="#000000"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="all"
+                 id="path29" />
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-29"
+             id="g32">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g31">
+              <path
+                 d="M 320,148 30,147 V 110 L 29.62,96.33"
+                 fill="none"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="stroke"
+                 id="path30" />
+              <path
+                 d="m 29.47,91.08 3.7,6.9 -3.55,-1.65 -3.45,1.84 z"
+                 fill="#000000"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="all"
+                 id="path31" />
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-30"
+             id="g36">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g33">
+              <rect
+                 x="130"
+                 y="28"
+                 width="100"
+                 height="30"
+                 fill="none"
+                 stroke="none"
+                 pointer-events="all"
+                 id="rect32" />
+            </g>
+            <g
+               id="g35">
+              <g
+                 id="g34">
+                <switch
+                   id="switch33">
+                  <foreignObject
+                     style="overflow: visible; text-align: left;"
+                     pointer-events="none"
+                     width="100%"
+                     height="100%"
+                     requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <xhtml:div
+                       style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 98px; height: 1px; padding-top: 43px; margin-left: 131px;">
+                      <xhtml:div
+                         style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                        <xhtml:div
+                           style="display: inline-block; font-size: 12px; font-family: Helvetica; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Book Request</xhtml:div>
+                      </xhtml:div>
+                    </xhtml:div>
+                  </foreignObject>
+                  <text
+                     x="180"
+                     y="47"
+                     fill="light-dark(#000000, #ffffff)"
+                     font-family="Helvetica"
+                     font-size="12px"
+                     text-anchor="middle"
+                     id="text33">Book Request</text>
+                </switch>
+              </g>
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-31"
+             id="g40">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g37">
+              <rect
+                 x="135"
+                 y="51"
+                 width="90"
+                 height="30"
+                 fill="none"
+                 stroke="none"
+                 pointer-events="all"
+                 id="rect36" />
+            </g>
+            <g
+               id="g39">
+              <g
+                 id="g38">
+                <switch
+                   id="switch37">
+                  <foreignObject
+                     style="overflow: visible; text-align: left;"
+                     pointer-events="none"
+                     width="100%"
+                     height="100%"
+                     requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <xhtml:div
+                       style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 88px; height: 1px; padding-top: 66px; margin-left: 136px;">
+                      <xhtml:div
+                         style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                        <xhtml:div
+                           style="display: inline-block; font-size: 12px; font-family: Helvetica; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Return Book</xhtml:div>
+                      </xhtml:div>
+                    </xhtml:div>
+                  </foreignObject>
+                  <text
+                     x="180"
+                     y="70"
+                     fill="light-dark(#000000, #ffffff)"
+                     font-family="Helvetica"
+                     font-size="12px"
+                     text-anchor="middle"
+                     id="text37">Return Book</text>
+                </switch>
+              </g>
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-32"
+             id="g44">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g41">
+              <rect
+                 x="140"
+                 y="82"
+                 width="90"
+                 height="30"
+                 fill="none"
+                 stroke="none"
+                 pointer-events="all"
+                 id="rect40" />
+            </g>
+            <g
+               id="g43">
+              <g
+                 id="g42">
+                <switch
+                   id="switch41">
+                  <foreignObject
+                     style="overflow: visible; text-align: left;"
+                     pointer-events="none"
+                     width="100%"
+                     height="100%"
+                     requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <xhtml:div
+                       style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 88px; height: 1px; padding-top: 97px; margin-left: 141px;">
+                      <xhtml:div
+                         style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                        <xhtml:div
+                           style="display: inline-block; font-size: 12px; font-family: Helvetica; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Book Status</xhtml:div>
+                      </xhtml:div>
+                    </xhtml:div>
+                  </foreignObject>
+                  <text
+                     x="185"
+                     y="101"
+                     fill="light-dark(#000000, #ffffff)"
+                     font-family="Helvetica"
+                     font-size="12px"
+                     text-anchor="middle"
+                     id="text41">Book Status</text>
+                </switch>
+              </g>
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-33"
+             id="g48">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g45">
+              <rect
+                 x="135"
+                 y="103"
+                 width="100"
+                 height="30"
+                 fill="none"
+                 stroke="none"
+                 pointer-events="all"
+                 id="rect44" />
+            </g>
+            <g
+               id="g47">
+              <g
+                 id="g46">
+                <switch
+                   id="switch45">
+                  <foreignObject
+                     style="overflow: visible; text-align: left;"
+                     pointer-events="none"
+                     width="100%"
+                     height="100%"
+                     requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <xhtml:div
+                       style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 98px; height: 1px; padding-top: 118px; margin-left: 136px;">
+                      <xhtml:div
+                         style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                        <xhtml:div
+                           style="display: inline-block; font-size: 12px; font-family: Helvetica; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Fine Details</xhtml:div>
+                      </xhtml:div>
+                    </xhtml:div>
+                  </foreignObject>
+                  <text
+                     x="185"
+                     y="122"
+                     fill="light-dark(#000000, #ffffff)"
+                     font-family="Helvetica"
+                     font-size="12px"
+                     text-anchor="middle"
+                     id="text45">Fine Details</text>
+                </switch>
+              </g>
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-34"
+             id="g52">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g49">
+              <rect
+                 x="130"
+                 y="123"
+                 width="100"
+                 height="30"
+                 fill="none"
+                 stroke="none"
+                 pointer-events="all"
+                 id="rect48" />
+            </g>
+            <g
+               id="g51">
+              <g
+                 id="g50">
+                <switch
+                   id="switch49">
+                  <foreignObject
+                     style="overflow: visible; text-align: left;"
+                     pointer-events="none"
+                     width="100%"
+                     height="100%"
+                     requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <xhtml:div
+                       style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 98px; height: 1px; padding-top: 138px; margin-left: 131px;">
+                      <xhtml:div
+                         style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                        <xhtml:div
+                           style="display: inline-block; font-size: 12px; font-family: Helvetica; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Membership Card</xhtml:div>
+                      </xhtml:div>
+                    </xhtml:div>
+                  </foreignObject>
+                  <text
+                     x="180"
+                     y="142"
+                     fill="light-dark(#000000, #ffffff)"
+                     font-family="Helvetica"
+                     font-size="12px"
+                     text-anchor="middle"
+                     id="text49">Membership Card</text>
+                </switch>
+              </g>
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-35"
+             id="g54">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g53">
+              <rect
+                 x="670"
+                 y="18"
+                 width="80"
+                 height="70"
+                 fill="#cce5ff"
+                 stroke="#36393d"
+                 pointer-events="all"
+                 id="rect52" />
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-36"
+             id="g58">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g55">
+              <rect
+                 x="680"
+                 y="38"
+                 width="60"
+                 height="30"
+                 fill="none"
+                 stroke="none"
+                 pointer-events="all"
+                 id="rect54" />
+            </g>
+            <g
+               id="g57">
+              <g
+                 id="g56">
+                <switch
+                   id="switch55">
+                  <foreignObject
+                     style="overflow: visible; text-align: left;"
+                     pointer-events="none"
+                     width="100%"
+                     height="100%"
+                     requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <xhtml:div
+                       style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 58px; height: 1px; padding-top: 53px; margin-left: 681px;">
+                      <xhtml:div
+                         style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                        <xhtml:div
+                           style="display: inline-block; font-size: 12px; font-family: Helvetica; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Librarian</xhtml:div>
+                      </xhtml:div>
+                    </xhtml:div>
+                  </foreignObject>
+                  <text
+                     x="710"
+                     y="57"
+                     fill="light-dark(#000000, #ffffff)"
+                     font-family="Helvetica"
+                     font-size="12px"
+                     text-anchor="middle"
+                     id="text55">Librarian</text>
+                </switch>
+              </g>
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-37"
+             id="g60">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g59">
+              <path
+                 d="M 670,31 H 446.37"
+                 fill="none"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="stroke"
+                 id="path58" />
+              <path
+                 d="m 441.12,31 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                 fill="#000000"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="all"
+                 id="path59" />
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-38"
+             id="g62">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g61">
+              <path
+                 d="M 670,56 H 446.37"
+                 fill="none"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="stroke"
+                 id="path60" />
+              <path
+                 d="m 441.12,56 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                 fill="#000000"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="all"
+                 id="path61" />
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-39"
+             id="g64">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g63">
+              <path
+                 d="M 670,81 H 446.37"
+                 fill="none"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="stroke"
+                 id="path62" />
+              <path
+                 d="m 441.12,81 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                 fill="#000000"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="all"
+                 id="path63" />
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-40"
+             id="g66">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g65">
+              <path
+                 d="m 440,112 h 243.17 l 0.02,-14.48"
+                 fill="none"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="stroke"
+                 id="path64" />
+              <path
+                 d="m 683.2,92.27 3.49,7 -3.5,-1.75 -3.5,1.74 z"
+                 fill="#000000"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="all"
+                 id="path65" />
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-43"
+             id="g68">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g67">
+              <path
+                 d="M 440,139 H 720 V 94.37"
+                 fill="none"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="stroke"
+                 id="path66" />
+              <path
+                 d="m 720,89.12 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                 fill="#000000"
+                 stroke="#000000"
+                 stroke-miterlimit="10"
+                 pointer-events="all"
+                 id="path67" />
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-44"
+             id="g72">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g69">
+              <rect
+                 x="520"
+                 y="4"
+                 width="110"
+                 height="30"
+                 fill="none"
+                 stroke="none"
+                 pointer-events="all"
+                 id="rect68" />
+            </g>
+            <g
+               id="g71">
+              <g
+                 id="g70">
+                <switch
+                   id="switch69">
+                  <foreignObject
+                     style="overflow: visible; text-align: left;"
+                     pointer-events="none"
+                     width="100%"
+                     height="100%"
+                     requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <xhtml:div
+                       style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 108px; height: 1px; padding-top: 19px; margin-left: 521px;">
+                      <xhtml:div
+                         style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                        <xhtml:div
+                           style="display: inline-block; font-size: 12px; font-family: Helvetica; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Add/Delete Books</xhtml:div>
+                      </xhtml:div>
+                    </xhtml:div>
+                  </foreignObject>
+                  <text
+                     x="575"
+                     y="23"
+                     fill="light-dark(#000000, #ffffff)"
+                     font-family="Helvetica"
+                     font-size="12px"
+                     text-anchor="middle"
+                     id="text69">Add/Delete Books</text>
+                </switch>
+              </g>
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-45"
+             id="g76">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g73">
+              <rect
+                 x="511"
+                 y="31"
+                 width="100"
+                 height="30"
+                 fill="none"
+                 stroke="none"
+                 pointer-events="all"
+                 id="rect72" />
+            </g>
+            <g
+               id="g75">
+              <g
+                 id="g74">
+                <switch
+                   id="switch73">
+                  <foreignObject
+                     style="overflow: visible; text-align: left;"
+                     pointer-events="none"
+                     width="100%"
+                     height="100%"
+                     requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <xhtml:div
+                       style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 98px; height: 1px; padding-top: 46px; margin-left: 512px;">
+                      <xhtml:div
+                         style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                        <xhtml:div
+                           style="display: inline-block; font-size: 12px; font-family: Helvetica; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Verify Member</xhtml:div>
+                      </xhtml:div>
+                    </xhtml:div>
+                  </foreignObject>
+                  <text
+                     x="561"
+                     y="50"
+                     fill="light-dark(#000000, #ffffff)"
+                     font-family="Helvetica"
+                     font-size="12px"
+                     text-anchor="middle"
+                     id="text73">Verify Member</text>
+                </switch>
+              </g>
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-46"
+             id="g80">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g77">
+              <rect
+                 x="495"
+                 y="56"
+                 width="130"
+                 height="30"
+                 fill="none"
+                 stroke="none"
+                 pointer-events="all"
+                 id="rect76" />
+            </g>
+            <g
+               id="g79">
+              <g
+                 id="g78">
+                <switch
+                   id="switch77">
+                  <foreignObject
+                     style="overflow: visible; text-align: left;"
+                     pointer-events="none"
+                     width="100%"
+                     height="100%"
+                     requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <xhtml:div
+                       style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 128px; height: 1px; padding-top: 71px; margin-left: 496px;">
+                      <xhtml:div
+                         style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                        <xhtml:div
+                           style="display: inline-block; font-size: 12px; font-family: Helvetica; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Issue/Return Entries</xhtml:div>
+                      </xhtml:div>
+                    </xhtml:div>
+                  </foreignObject>
+                  <text
+                     x="560"
+                     y="75"
+                     fill="light-dark(#000000, #ffffff)"
+                     font-family="Helvetica"
+                     font-size="12px"
+                     text-anchor="middle"
+                     id="text77">Issue/Return Entries</text>
+                </switch>
+              </g>
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-47"
+             id="g84">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g81">
+              <rect
+                 x="500"
+                 y="85"
+                 width="150"
+                 height="30"
+                 fill="none"
+                 stroke="none"
+                 pointer-events="all"
+                 id="rect80" />
+            </g>
+            <g
+               id="g83">
+              <g
+                 id="g82">
+                <switch
+                   id="switch81">
+                  <foreignObject
+                     style="overflow: visible; text-align: left;"
+                     pointer-events="none"
+                     width="100%"
+                     height="100%"
+                     requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <xhtml:div
+                       style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 148px; height: 1px; padding-top: 100px; margin-left: 501px;">
+                      <xhtml:div
+                         style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                        <xhtml:div
+                           style="display: inline-block; font-size: 12px; font-family: Helvetica; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Reports (Overdue, Stock)</xhtml:div>
+                      </xhtml:div>
+                    </xhtml:div>
+                  </foreignObject>
+                  <text
+                     x="575"
+                     y="104"
+                     fill="light-dark(#000000, #ffffff)"
+                     font-family="Helvetica"
+                     font-size="12px"
+                     text-anchor="middle"
+                     id="text81">Reports (Overdue, Stock)</text>
+                </switch>
+              </g>
+            </g>
+          </g>
+          <g
+             data-cell-id="_UPdt_vAvN64_Ba1C41u-48"
+             id="g88"
+             inkscape:export-filename="DFD 0.png"
+             inkscape:export-xdpi="96"
+             inkscape:export-ydpi="96">
+            <g
+               transform="translate(0.5,0.5)"
+               id="g85">
+              <rect
+                 x="510"
+                 y="114"
+                 width="110"
+                 height="30"
+                 fill="none"
+                 stroke="none"
+                 pointer-events="all"
+                 id="rect84" />
+            </g>
+            <g
+               id="g87">
+              <g
+                 id="g86">
+                <switch
+                   id="switch85">
+                  <foreignObject
+                     style="overflow: visible; text-align: left;"
+                     pointer-events="none"
+                     width="100%"
+                     height="100%"
+                     requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility">
+                    <xhtml:div
+                       style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 108px; height: 1px; padding-top: 129px; margin-left: 511px;">
+                      <xhtml:div
+                         style="box-sizing: border-box; font-size: 0; text-align: center; color: #000000; ">
+                        <xhtml:div
+                           style="display: inline-block; font-size: 12px; font-family: Helvetica; color: light-dark(#000000, #ffffff); line-height: 1.2; pointer-events: all; white-space: normal; word-wrap: normal; ">Member Details</xhtml:div>
+                      </xhtml:div>
+                    </xhtml:div>
+                  </foreignObject>
+                  <text
+                     x="565"
+                     y="133"
+                     fill="light-dark(#000000, #ffffff)"
+                     font-family="Helvetica"
+                     font-size="12px"
+                     text-anchor="middle"
+                     id="text85">Member Details</text>
+                </switch>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+    <switch
+       id="switch92"
+       transform="matrix(2.4781488,0,0,2.4781488,28.612268,268.83755)">
+      <g
+         requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+         id="g92" />
+      <a
+         transform="translate(0,-5)"
+         xlink:href="https://www.drawio.com/doc/faq/svg-export-text-problems"
+         target="_blank"
+         id="a92">
+        <text
+           text-anchor="middle"
+           font-size="10px"
+           x="50%"
+           y="100%"
+           id="text92">Text is not SVG - cannot display</text>
+      </a>
+    </switch>
+  </g>
+</svg>
