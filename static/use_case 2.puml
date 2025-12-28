@@ -1,0 +1,93 @@
+@startuml library_management
+
+left to right direction
+' skinparam linetype polyline
+' skinparam linetype ortho
+
+' Styling
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam handwritten false
+
+' Actor styling
+skinparam actor {
+  BackgroundColor #E3F2FD
+  BorderColor #1976D2
+  BorderThickness 2
+  FontSize 14
+  FontStyle bold
+}
+
+' Use case styling
+skinparam usecase {
+  BackgroundColor #FFF9C4
+  BorderColor #F57C00
+  BorderThickness 2
+  FontSize 12
+  ArrowThickness 2
+}
+
+' Package styling
+skinparam rectangle {
+  BackgroundColor #E8F5E9
+  BorderColor #388E3C
+  BorderThickness 3
+  FontSize 16
+  FontStyle bold
+}
+
+' Arrow styling
+skinparam ArrowColor #424242
+
+actor Librarian as librarian
+
+rectangle "Library Management System" {
+
+  ' Librarian Use Cases - Grouped
+  package "Book Management" #FFCCBC {
+    usecase "Add New Book" as UC9
+    usecase "Update Book Details" as UC10
+    usecase "Delete Book" as UC11
+    usecase "Manage Book Database" as UC22
+  }
+
+  package "Member Management" #D1C4E9 {
+    usecase "Register Member" as UC12
+    usecase "Remove Member" as UC13
+    usecase "Verify Membership" as UC14
+    usecase "Manage Member Database" as UC23
+  }
+
+  package "Reports" #F8BBD0 {
+    usecase "Generate Overdue Report" as UC18
+    usecase "Generate Fine Collection Report" as UC19
+    usecase "Generate Stock Inventory Report" as UC20
+    usecase "Generate Member Activity Report" as UC21
+  }
+ 
+}
+
+' Librarian relationships
+librarian -- UC9
+librarian -- UC10
+librarian -- UC11
+librarian -- UC12
+librarian -- UC13
+librarian -- UC14
+librarian -- UC18
+librarian -- UC19
+librarian -- UC20
+librarian -- UC21
+librarian -- UC22
+librarian -- UC23
+
+' Add spacing note
+note left of librarian
+  <b>Librarian Functions:</b>
+  - Manage books & members
+  - Handle transactions
+  - Generate reports
+end note
+
+
+@enduml
