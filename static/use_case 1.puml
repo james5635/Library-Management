@@ -40,7 +40,6 @@ skinparam rectangle {
 skinparam ArrowColor #424242
 
 actor Client as client
-actor Librarian as librarian
 
 rectangle "Library Management System" {
   
@@ -59,33 +58,12 @@ rectangle "Library Management System" {
     usecase "Check Book Status" as UC4
   }
   
-  ' Librarian Use Cases - Grouped
-  package "Book Management" #FFCCBC {
-    usecase "Add New Book" as UC9
-    usecase "Update Book Details" as UC10
-    usecase "Delete Book" as UC11
-    usecase "Manage Book Database" as UC22
-  }
-  
-  package "Member Management" #D1C4E9 {
-    usecase "Register Member" as UC12
-    usecase "Remove Member" as UC13
-    usecase "Verify Membership" as UC14
-    usecase "Manage Member Database" as UC23
-  }
-  
   package "Transaction Management" #B2DFDB {
     usecase "Issue Book" as UC15
     usecase "Process Book Return" as UC16
     usecase "Calculate Fine" as UC17
   }
   
-  package "Reports" #F8BBD0 {
-    usecase "Generate Overdue Report" as UC18
-    usecase "Generate Fine Collection Report" as UC19
-    usecase "Generate Stock Inventory Report" as UC20
-    usecase "Generate Member Activity Report" as UC21
-  }
   
   ' System Use Cases (Internal)
   package "System Operations" #CFD8DC {
@@ -105,42 +83,17 @@ client -- UC6
 client -- UC7
 client -- UC8
 
-' Librarian relationships
-librarian -- UC9
-librarian -- UC10
-librarian -- UC11
-librarian -- UC12
-librarian -- UC13
-librarian -- UC14
-librarian -- UC15
-librarian -- UC16
-librarian -- UC17
-librarian -- UC18
-librarian -- UC19
-librarian -- UC20
-librarian -- UC21
-librarian -- UC22
-librarian -- UC23
-
 ' Include relationships
 UC2 ..> UC24 : <<include>>
 UC2 ..> UC25 : <<include>>
-UC15 ..> UC24 : <<include>>
+UC15 .l.> UC24 : <<include>>
 UC15 ..> UC25 : <<include>>
 UC15 ..> UC26 : <<include>>
 UC16 ..> UC26 : <<include>>
-UC16 ..> UC17 : <<include>>
+UC16 .u..> UC17 : <<include>>
 
 ' Extend relationships
 UC3 <.. UC17 : <<extend>>
-
-' Add spacing note
-note right of librarian
-  <b>Librarian Functions:</b>
-  - Manage books & members
-  - Handle transactions
-  - Generate reports
-end note
 
 note left of client
   <b>Client Functions:</b>
