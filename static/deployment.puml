@@ -1,0 +1,190 @@
+@startuml Library Management System
+'Deployment Diagram for Library Management System
+
+' skinparam linetype polyline
+skinparam linetype ortho
+
+' Styling
+skinparam shadowing false
+skinparam handwritten false
+
+skinparam node {
+  BackgroundColor #E3F2FD
+  BorderColor #1976D2
+  BorderThickness 2
+  FontSize 13
+  FontStyle bold
+}
+
+skinparam component {
+  BackgroundColor #FFF9C4
+  BorderColor #F57C00
+  BorderThickness 2
+  FontSize 11
+}
+
+skinparam database {
+  BackgroundColor #C8E6C9
+  BorderColor #388E3C
+  BorderThickness 2
+  FontSize 12
+}
+
+skinparam artifact {
+  BackgroundColor #FFECB3
+  BorderColor #F57C00
+  BorderThickness 1
+  FontSize 10
+}
+
+' Client Tier
+node "<<device>>\n<u>:Client/Librarian Workstation</u>" as client1 {
+  node "<<execution environment>>\n<u>:Web Browser</u>" as browser1 {
+    artifact "<u>:HTML/CSS/JavaScript</u>" as html1
+  }
+}
+
+node "<<device>>\n<u>:Mobile Device</u>" as mobile {
+  artifact "<u>:iOS/Android App</u>" as mobileartifact
+}
+
+' Network
+cloud "Internet" as internet {
+}
+
+' Presentation Tier
+node "<<device>>\n<u>:Web Server</u>" as webserver {
+  node "<<execution environment>>\n<u>:Apache/Nginx</u>" as static {
+    artifact "<u>:HTML FIles</u>" as images
+    artifact "<u>:CSS Files</u>" as css
+    artifact "<u>:JavaScript Files</u>" as js
+    artifact "<u>:Website Files</u>" as js
+    artifact "<u>:Shared Files</u>" as js
+  }
+}
+
+' Application Tier
+node "<<device>>\n<u>:Application Server 1</u>" as appserver1  {
+  node "<<execution environment>>\n<u>:Library Management Application</u>" as webapp1 {
+    artifact "<u>:Member Module</u>" as member1
+    artifact "<u>:Book Module</u>" as book1
+    artifact "<u>:Transaction Module</u>" as trans1
+  }
+}
+
+node "<<device>>\n<u>:Application Server 2</u>" as appserver2  {
+  node "<<execution environment>>\n<u>:Library Management Application</u>" as webapp2 {
+    artifact "<u>:Member Module</u>" as member2
+    artifact "<u>:Book Module</u>" as book2
+    artifact "<u>:Transaction Module</u>" as trans2
+  }
+}
+
+node "<<device>>\n<u>:Load Balancer</u>" as loadbalancer {
+  node "<<execution environment>>\n<u>:Nginx/HAProxy</u>" as lbservice{
+    artifact "<u>:Nginx Config</u>"
+    artifact "<u>:HAProxy Config</u>"
+  }
+}
+
+' Business Logic Tier
+node "<<device>>\n<u>:API Server</u>" as apiserver {
+  artifact "<u>:Member Service API</u>" as memberapi
+  artifact "<u>:Book Service API</u>" as bookapi
+  artifact "<u>:Transaction Service API</u>" as transapi
+  artifact "<u>:Report Service API</u>" as reportapi
+}
+
+' Data Tier
+node "<<device>>\n<u>:Database Server</u>" as dbserver {
+  node "<execution environment>>\n<u>:PostgreSQL</u>" as maindb {
+    artifact "<u>:Member Database</u>" as memberdb
+    artifact "<u>:Book Database</u>" as bookdb
+    artifact "<u>:Transaction/Issue Database</u>" as transdb
+  }
+}
+
+node "<<device>>\n<u>:Cache Server</u>" as cacheserver  {
+  node "<<execution environment>>\n<u>Redis/Memcached</u>" as cache {
+    artifact "<u>:Session Cache</u>" as sessioncache
+    artifact "<u>:Query Cache</u>" as querycache
+  }
+}
+
+node "<<device>>\n<u>:Backup Server</u>" as backupserver {
+  node "<<device>>\n<u>:restic/barman</u>" as backupdb {
+    artifact "<u>:Daily Backups</u>" as dailybackup
+    artifact "<u>:Weekly Backups</u>" as weeklybackup
+  }
+}
+
+' File Storage
+node "<<device>>\n<u>:File Server</u>" as fileserver {
+  node "<<execution environment>>\n<u>:NFS/Samba</u>" as filestorage {
+    artifact "<u>:Member Documents</u>" as memberdocs
+    artifact "<u>:Book Covers</u>" as bookcovers
+    artifact "<u>:Book</u>" as bookcovers
+    artifact "<u>:Transaction</u>" as bookcovers
+    artifact "<u>:Reports</u>" as reports
+  }
+}
+
+' Connections - Client to Internet
+client1 -- internet : HTTPS
+mobile -- internet : HTTPS
+
+' Internet to Web Server
+internet -- loadbalancer : HTTPS
+loadbalancer -- webserver : HTTP
+
+' Load Balancer to App Servers
+loadbalancer -- appserver1 : HTTP
+loadbalancer -- appserver2 : HTTP
+
+' App Servers to API Server
+appserver1 -- apiserver : REST/HTTPS
+appserver2 -- apiserver : REST/HTTPS
+
+' API Server to Database
+apiserver -- dbserver : SQL/TCP
+apiserver -- cacheserver : TCP
+
+' API Server to File Storage
+apiserver -- fileserver : NFS/HTTP
+
+' Database Backup
+dbserver -- backupserver : Backup\nScheduled
+
+' Cache to Database
+cacheserver .. dbserver : Cache Miss
+
+note right of loadbalancer
+  <b>Load Balancer:</b>
+  - Distributes traffic
+  - Health checks
+  - SSL termination
+end note
+
+note top of apiserver
+  <b>API Server:</b>
+  - Business logic
+  - Authentication
+  - Authorization
+  - Data validation
+end note
+
+note bottom of dbserver
+  <b>Database:</b>
+  - Primary data store
+  - ACID compliance
+  - Indexing & optimization
+end note
+
+note left of cacheserver
+  <b>Cache Server:</b>
+  - Session management
+  - Query result caching
+  - Performance boost
+end note
+
+@enduml
