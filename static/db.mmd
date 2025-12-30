@@ -1,6 +1,16 @@
----
-title: Library Management System
----
+%%{init: {
+  'theme': 'base',
+  'themeVariables': {
+    'primaryColor': '#E3F2FD',
+    'primaryTextColor': '#1565C0',
+    'primaryBorderColor': '#1976D2',
+    'lineColor': '#42A5F5',
+    'secondaryColor': '#F3E5F5',
+    'tertiaryColor': '#E8F5E9',
+    'fontSize': '14px',
+    'fontFamily': 'ui-sans-serif, system-ui, sans-serif'
+  }
+}}%%
 erDiagram
     Publishers {
         int PublisherID PK
@@ -29,7 +39,7 @@ erDiagram
     Staffs {
         int StaffID PK
         string StaffName
-        sring LoginID UK
+        string LoginID UK
         string Password
         bool CanManageDigital
     }
@@ -43,8 +53,8 @@ erDiagram
         int CategoryID FK
     }
     Book_Authors {
-        string ISBN PK,FK
-        int AuthorID PK,FK
+        string ISBN PK_FK
+        int AuthorID PK_FK
     }
     Loans {
         int LoanID PK
@@ -59,9 +69,9 @@ erDiagram
     DigitalAssets {
         int AssetID PK
         string ISBN FK
-        enumFileFormat 
+        enum FileFormat 
         decimal FileSizeMB 
-        stringDownloadURL
+        string DownloadURL
         enum AccessLevel
     }
     DigitalAccessLogs {
@@ -72,13 +82,12 @@ erDiagram
         string IPAddress
     }
 
-    Books }o--o| Publishers : publish
-    Books }o--o| Categories : categorize
-    Books }o--o{ Authors : write
-    Loans }o--|| Books : reference
-    Loans }o--|| Readers : borrow
-    Loans }o--|| Staffs : process
-    DigitalAssets }o--|| Books : include
-    DigitalAccessLogs }o--|| Readers : access
-    DigitalAccessLogs }o--|| DigitalAssets : access
-
+    Books }o--o| Publishers : "published by"
+    Books }o--o| Categories : "belongs to"
+    Books }o--o{ Authors : "written by"
+    Loans }o--|| Books : "references"
+    Loans }o--|| Readers : "borrowed by"
+    Loans }o--|| Staffs : "processed by"
+    DigitalAssets }o--|| Books : "digital version of"
+    DigitalAccessLogs }o--|| Readers : "accessed by"
+    DigitalAccessLogs }o--|| DigitalAssets : "logs access to"

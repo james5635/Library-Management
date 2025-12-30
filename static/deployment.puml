@@ -58,8 +58,8 @@ node "<<device>>\n<u>:Web Server</u>" as webserver {
     artifact "<u>:HTML FIles</u>" as images
     artifact "<u>:CSS Files</u>" as css
     artifact "<u>:JavaScript Files</u>" as js
-    artifact "<u>:Website Files</u>" as js
-    artifact "<u>:Shared Files</u>" as js
+    artifact "<u>:Website Files</u>"
+    artifact "<u>:Shared Files</u>" 
   }
 }
 
@@ -123,8 +123,8 @@ node "<<device>>\n<u>:File Server</u>" as fileserver {
   node "<<execution environment>>\n<u>:NFS/Samba</u>" as filestorage {
     artifact "<u>:Member Documents</u>" as memberdocs
     artifact "<u>:Book Covers</u>" as bookcovers
-    artifact "<u>:Book</u>" as bookcovers
-    artifact "<u>:Transaction</u>" as bookcovers
+    artifact "<u>:Book</u>"
+    artifact "<u>:Transaction</u>" 
     artifact "<u>:Reports</u>" as reports
   }
 }
