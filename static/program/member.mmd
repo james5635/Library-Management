@@ -1,0 +1,13 @@
+graph LR
+    Start([Start]) --> In[Input Personal Info]
+    In --> Search{Exists?}
+    
+    %% Error Path
+    Search -- Yes --> Err[Display: Already Registered]
+    Err --> End([End])
+    
+    %% Success Path
+    Search -- No --> Save[Create Record]
+    Save --> ID[Gen Member ID]
+    ID --> Card[Issue Library Card]
+    Card --> End

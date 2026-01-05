@@ -1,0 +1,17 @@
+
+
+graph LR
+    Start([Start]) --> In[Input Data]
+    In --> Check{Late?}
+    
+    Check -- No --> NoFine[Fine = $0]
+    NoFine --> End([End])
+    
+    Check -- Yes --> Calc[Calc Fine]
+    Calc --> Cap{> Max?}
+    
+    Cap -- Yes --> SetMax[Use Max]
+    Cap -- No --> Save[Save Fine]
+    
+    SetMax --> Save
+    Save --> End
