@@ -19,10 +19,7 @@ public class Book {
     private String edition;
     private BigDecimal price;
     
-    @Column(columnDefinition = "TEXT")
-    private String coverImage;
-
-    @Column(columnDefinition = "TEXT")
+    private String coverImage; // Now stores the path/URL
     private String description;
 
     @Enumerated(EnumType.STRING)

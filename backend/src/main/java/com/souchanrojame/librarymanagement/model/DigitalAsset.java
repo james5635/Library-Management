@@ -23,10 +23,7 @@ public class DigitalAsset {
     private FileFormat fileFormat;
 
     private BigDecimal fileSizeMB;
-    private String downloadUrl;
-    
-    @Column(columnDefinition = "TEXT")
-    private String content;
+    private String contentUrl; // Stores the path to the PDF/File
 
     @Enumerated(EnumType.STRING)
     private AccessLevel accessLevel;

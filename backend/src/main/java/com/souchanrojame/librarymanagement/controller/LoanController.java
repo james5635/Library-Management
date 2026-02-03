@@ -25,7 +25,7 @@ public class LoanController {
 
     @PutMapping("/{id}/return")
     public Loan returnBook(@PathVariable Integer id) {
-        Loan loan = loanRepository.findById(id).orElseThrow();
+        Loan loan = loanRepository.findById(id).orElseThrow(() -> new java.util.NoSuchElementException("Loan not found with ID: " + id));
         loan.setStatus(Loan.LoanStatus.RETURNED);
         loan.setReturnDate(java.time.LocalDate.now());
         return loanRepository.save(loan);

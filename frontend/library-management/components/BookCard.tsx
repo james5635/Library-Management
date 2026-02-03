@@ -2,21 +2,30 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { STORAGE_BASE_URL } from '@/lib/api';
 
 interface BookCardProps {
-    id: string;
+    isbn: string;
     title: string;
     author: string;
     coverImage: string;
     showButtons?: boolean;
 }
 
-export default function BookCard({ id, title, author, coverImage, showButtons = false }: BookCardProps) {
+export default function BookCard({ isbn, title, author, coverImage, showButtons = false }: BookCardProps) {
+    const getFullUrl = (path: string) => {
+        if (!path) return "/static/UI/2.png";
+        if (path.startsWith('http') || path.startsWith('data:') || path.startsWith('/static')) return path;
+        return `${STORAGE_BASE_URL}${path}`;
+    };
+
+    const fullCoverUrl = getFullUrl(coverImage);
+
     return (
-        <Link href={`/book/${id}`} className="flex flex-col gap-3 group cursor-pointer">
+        <Link href={`/book/${isbn}`} className="flex flex-col gap-3 group cursor-pointer">
             <div className="relative aspect-[3/4] w-full rounded-xl overflow-hidden shadow-sm transition-transform group-hover:scale-[1.02] duration-300 border border-gray-100 dark:border-gray-800">
                 <Image
-                    src={coverImage}
+                    src={fullCoverUrl}
                     alt={title}
                     fill
                     className="object-cover"

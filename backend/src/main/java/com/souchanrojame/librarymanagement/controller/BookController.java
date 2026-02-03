@@ -27,7 +27,7 @@ public class BookController {
 
     @GetMapping("/{isbn}")
     public Book getBookByIsbn(@PathVariable String isbn) {
-        return bookRepository.findById(isbn).orElseThrow();
+        return bookRepository.findById(isbn).orElseThrow(() -> new java.util.NoSuchElementException("Book not found with ISBN: " + isbn));
     }
 
     @PostMapping

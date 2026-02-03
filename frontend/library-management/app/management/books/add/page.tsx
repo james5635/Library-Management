@@ -16,25 +16,20 @@ export default function AddBookPage() {
         edition: '1',
         price: '',
         bookType: 'PHYSICAL',
-        coverImage: '',
         description: '',
-        assetFile: ''
     });
+    const [coverFile, setCoverFile] = useState<File | null>(null);
+    const [assetFile, setAssetFile] = useState<File | null>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, type: 'cover' | 'asset') => {
         const file = e.target.files?.[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                const base64String = reader.result as string;
-                if (type === 'cover') {
-                    setPreviewUrl(base64String);
-                    setFormData(prev => ({ ...prev, coverImage: base64String }));
-                } else {
-                    setFormData(prev => ({ ...prev, assetFile: base64String }));
-                }
-            };
-            reader.readAsDataURL(file);
+            if (type === 'cover') {
+                setCoverFile(file);
+                setPreviewUrl(URL.createObjectURL(file));
+            } else {
+                setAssetFile(file);
+            }
         }
     };
 
@@ -51,27 +46,35 @@ export default function AddBookPage() {
 
             const priceValue = parseFloat(formData.price.replace('$', '')) || 0;
 
-            // Create the book
+            // 1. Upload Cover if exists
+            let coverImageUrl = '';
+            if (coverFile) {
+                const res = await api.files.upload(coverFile);
+                coverImageUrl = res.url;
+            }
+
+            // 2. Create the book
             await api.books.create({
                 isbn: formData.isbn,
                 title: formData.title,
                 edition: formData.edition,
                 price: priceValue,
                 bookType: formData.bookType,
-                coverImage: formData.coverImage,
+                coverImage: coverImageUrl,
                 description: formData.description,
                 publisher: null,
                 category: null,
                 authors: []
             });
 
-            // If it's a digital book, create the asset
-            if ((formData.bookType === 'DIGITAL' || formData.bookType === 'BOTH') && formData.assetFile) {
+            // 3. Upload Asset and Create Record if it's a digital book
+            if ((formData.bookType === 'DIGITAL' || formData.bookType === 'BOTH') && assetFile) {
+                const res = await api.files.upload(assetFile);
                 await api.assets.create({
                     book: { isbn: formData.isbn },
-                    fileFormat: 'PDF', // Defaulting to PDF for this demo
-                    fileSizeMB: 5.0,
-                    content: formData.assetFile,
+                    fileFormat: 'PDF',
+                    fileSizeMB: parseFloat((assetFile.size / (1024 * 1024)).toFixed(2)),
+                    contentUrl: res.url,
                     accessLevel: 'PUBLIC'
                 });
             }
@@ -114,7 +117,7 @@ export default function AddBookPage() {
 
                 {(formData.bookType === 'DIGITAL' || formData.bookType === 'BOTH') && (
                     <label className="cursor-pointer bg-brand-teal text-white px-4 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity shadow-sm w-full text-center">
-                        {formData.assetFile ? 'File Uploaded ✓' : 'Upload Digital Asset'}
+                        {assetFile ? 'File Uploaded ✓' : 'Upload Digital Asset'}
                         <input type="file" className="hidden" accept=".pdf,.epub" onChange={(e) => handleFileChange(e, 'asset')} />
                     </label>
                 )}

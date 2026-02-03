@@ -16,7 +16,8 @@ import { cn } from '@/lib/utils';
 
 const sidebarItems = [
     { icon: LayoutDashboard, href: '/', label: 'Dashboard' },
-    { icon: LayoutGrid, href: '/management/books', label: 'Librarian' },
+    { icon: LayoutGrid, href: '/librarian', label: 'Librarian' },
+    { icon: BookOpen, href: '/management/books', label: 'Books' },
     { icon: MessageSquare, href: '/chatbot', label: 'Chatbot' },
     { icon: Bookmark, href: '/bookmark', label: 'Bookmark' },
 ];

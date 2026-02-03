@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { api } from '@/lib/api';
+import { api, STORAGE_BASE_URL } from '@/lib/api';
 
 export default function BookViewerPage() {
     const params = useParams();
@@ -37,15 +37,24 @@ export default function BookViewerPage() {
     if (loading) return <div className="p-8 text-center text-gray-400">Loading document...</div>;
     if (!book) return <div className="p-8 text-center text-red-400">Book not found.</div>;
 
-    const digitalContent = assets.find(a => a.content)?.content;
-    const isPdf = digitalContent?.startsWith('data:application/pdf');
+    const digitalContentUrl = assets.find(a => a.contentUrl)?.contentUrl;
+    const isPdf = digitalContentUrl?.toLowerCase().endsWith('.pdf');
+
+    const getFullUrl = (path: string) => {
+        if (!path) return null;
+        if (path.startsWith('http')) return path;
+        return `${STORAGE_BASE_URL}${path}`;
+    };
+
+    const fullContentUrl = getFullUrl(digitalContentUrl);
+    const fullCoverUrl = getFullUrl(book?.coverImage) || "/static/UI/2.png";
 
     return (
         <div className="flex flex-col items-center gap-8 py-4">
             {isPdf ? (
                 <div className="w-full max-w-[1000px] h-[80vh] bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
                     <iframe
-                        src={digitalContent}
+                        src={fullContentUrl || ''}
                         className="w-full h-full border-none"
                         title="PDF Viewer"
                     />
@@ -56,17 +65,17 @@ export default function BookViewerPage() {
                         <div className="text-[10px] text-gray-400 font-medium">{book?.title || 'Untitled'}</div>
                         <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">{book?.title || 'Sample document'}</h2>
 
-                        {digitalContent ? (
+                        {fullContentUrl ? (
                             <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar">
                                 <div className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-serif whitespace-pre-wrap">
-                                    {digitalContent}
+                                    {fullContentUrl}
                                 </div>
                             </div>
                         ) : (
                             <>
                                 <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-gray-100 dark:border-gray-800">
                                     <Image
-                                        src={book?.coverImage || "/static/UI/2.png"}
+                                        src={fullCoverUrl}
                                         alt="Sample content"
                                         fill
                                         className="object-cover"
@@ -85,7 +94,7 @@ export default function BookViewerPage() {
                         <div className="flex gap-6">
                             <div className="relative w-1/3 aspect-square rounded-lg overflow-hidden flex-shrink-0 border border-gray-100 dark:border-gray-800">
                                 <Image
-                                    src={book?.coverImage || "/static/UI/2.png"}
+                                    src={fullCoverUrl}
                                     alt="Sample content"
                                     fill
                                     className="object-cover"

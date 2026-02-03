@@ -1,7 +1,15 @@
 const API_BASE_URL = 'http://localhost:8080/api';
+export const STORAGE_BASE_URL = 'http://localhost:8080';
 
-const handleResponse = (res: Response) => {
-    if (!res.ok) throw new Error(`API error: ${res.statusText}`);
+const handleResponse = async (res: Response) => {
+    if (!res.ok) {
+        let errorMsg = `API error ${res.status}: ${res.statusText}`;
+        try {
+            const body = await res.text();
+            if (body) errorMsg += ` - ${body}`;
+        } catch (e) { }
+        throw new Error(errorMsg);
+    }
     // Check if body is empty
     const contentType = res.headers.get("content-type");
     if (contentType && contentType.includes("application/json")) {
@@ -74,5 +82,15 @@ export const api = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(credentials)
         }).then(handleResponse)
+    },
+    files: {
+        upload: (file: File) => {
+            const formData = new FormData();
+            formData.append('file', file);
+            return fetch(`${API_BASE_URL}/upload`, {
+                method: 'POST',
+                body: formData
+            }).then(handleResponse);
+        }
     }
 };

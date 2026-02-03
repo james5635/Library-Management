@@ -74,7 +74,7 @@ function DashboardContent() {
               books.map((book) => (
                 <BookCard
                   key={book.isbn}
-                  id={book.isbn}
+                  isbn={book.isbn}
                   title={book.title}
                   author={book.authors?.map((a: any) => `${a.firstName} ${a.lastName}`).join(', ') || 'Unknown'}
                   coverImage={book.coverImage || `/static/UI/${Math.floor(Math.random() * 10) + 1}.png`}

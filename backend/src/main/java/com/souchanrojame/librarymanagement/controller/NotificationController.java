@@ -25,7 +25,7 @@ public class NotificationController {
 
     @PatchMapping("/{id}/read")
     public Notification markAsRead(@PathVariable Long id) {
-        Notification notification = notificationRepository.findById(id).orElseThrow();
+        Notification notification = notificationRepository.findById(id).orElseThrow(() -> new java.util.NoSuchElementException("Notification not found with ID: " + id));
         notification.setRead(true);
         return notificationRepository.save(notification);
     }
