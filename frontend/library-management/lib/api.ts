@@ -42,8 +42,14 @@ export const api = {
     },
     readers: {
         getAll: () => fetch(`${API_BASE_URL}/readers`).then(handleResponse),
+        getOne: (id: number) => fetch(`${API_BASE_URL}/readers/${id}`).then(handleResponse),
         create: (reader: any) => fetch(`${API_BASE_URL}/readers`, {
             method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(reader)
+        }).then(handleResponse),
+        update: (id: number, reader: any) => fetch(`${API_BASE_URL}/readers/${id}`, {
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(reader)
         }).then(handleResponse),

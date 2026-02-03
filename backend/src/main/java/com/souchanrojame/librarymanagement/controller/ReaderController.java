@@ -18,9 +18,26 @@ public class ReaderController {
         return readerRepository.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Reader getOneReader(@PathVariable Integer id) {
+        return readerRepository.findById(id).orElseThrow(() -> new java.util.NoSuchElementException("Member not found with ID: " + id));
+    }
+
     @PostMapping
     public Reader createReader(@RequestBody Reader reader) {
+        if (reader.getJoinDate() == null) reader.setJoinDate(java.time.LocalDate.now());
         return readerRepository.save(reader);
+    }
+
+    @PutMapping("/{id}")
+    public Reader updateReader(@PathVariable Integer id, @RequestBody Reader reader) {
+        Reader existing = readerRepository.findById(id).orElseThrow(() -> new java.util.NoSuchElementException("Member not found with ID: " + id));
+        existing.setFirstName(reader.getFirstName());
+        existing.setLastName(reader.getLastName());
+        existing.setEmail(reader.getEmail());
+        existing.setPhoneNumber(reader.getPhoneNumber());
+        existing.setAddress(reader.getAddress());
+        return readerRepository.save(existing);
     }
 
     @DeleteMapping("/{id}")
