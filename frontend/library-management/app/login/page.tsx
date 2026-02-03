@@ -1,98 +1,80 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { ChevronDown } from 'lucide-react';
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [formData, setFormData] = useState({
+    role: 'Value',
+    username: '',
+    password: ''
+  });
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-
-    try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Login failed');
-      }
-
-      const data = await response.json();
-
-      // Store the token in localStorage or other state management solution
-      localStorage.setItem('token', data.token);
-
-      // Redirect to dashboard or home page
-      router.push('/dashboard');
-    } catch (err) {
-      setError('Invalid email or password');
-    }
+    router.push('/');
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
-          </h2>
-        </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="email-address" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="email-address"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Password
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+    <div className="min-h-screen flex items-center justify-center bg-white p-4">
+      <div className="w-full max-w-[320px] bg-white border border-gray-100 rounded-[20px] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-500">Role</label>
+            <div className="relative">
+              <select
+                className="w-full h-12 px-4 bg-white border border-gray-200 rounded-xl appearance-none focus:outline-none focus:ring-1 focus:ring-brand-teal text-gray-700"
+                value={formData.role}
+                onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+              >
+                <option>Value</option>
+                <option>Admin</option>
+                <option>Librarian</option>
+                <option>Member</option>
+              </select>
+              <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={18} />
             </div>
           </div>
 
-          {error && (
-            <div className="text-red-500 text-sm text-center">{error}</div>
-          )}
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-500">Username</label>
+            <input
+              type="text"
+              placeholder="Value"
+              className="w-full h-12 px-4 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-brand-teal text-gray-700 placeholder:text-gray-300"
+              value={formData.username}
+              onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+            />
+          </div>
 
-          <div>
-            <button
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Sign in
-            </button>
+          <div className="flex flex-col gap-2">
+            <label className="text-sm font-medium text-gray-500">Password</label>
+            <input
+              type="password"
+              placeholder="Value"
+              className="w-full h-12 px-4 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-1 focus:ring-brand-teal text-gray-700 placeholder:text-gray-300"
+              value={formData.password}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="w-full h-12 bg-brand-teal text-white font-semibold rounded-xl hover:opacity-90 transition-opacity mt-2"
+          >
+            Sign In
+          </button>
+
+          <div className="flex flex-col items-start gap-2 text-sm">
+            <Link href="/forgot-password" title="Forgot password?" className="text-gray-500 underline underline-offset-4 hover:text-brand-teal">
+              Forgot password?
+            </Link>
+            <Link href="/register" title="Register" className="text-gray-500 underline underline-offset-4 hover:text-brand-teal">
+              No account? Register
+            </Link>
           </div>
         </form>
       </div>
