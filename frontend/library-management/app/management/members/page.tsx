@@ -1,18 +1,42 @@
 'use client';
 
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, Trash2 } from 'lucide-react';
 import Link from 'next/link';
-
-const membersData = [
-    { firstName: 'Thida', lastName: 'Sok', email: 'sokthida168@gmail.com', phone: '016 689 732', joinDate: '1/2/2003' },
-    { firstName: 'Vuth', lastName: 'Meas', email: 'measvuth168@gmail.com', phone: '016 689 733', joinDate: '1/2/2003' },
-    { firstName: 'Sovann', lastName: 'Da', email: 'dasovann168@gmail.com', phone: '016 689 734', joinDate: '1/2/2003' },
-    { firstName: 'Dara', lastName: 'Sam', email: 'samdara168@gmail.com', phone: '016 689 735', joinDate: '1/2/2004' },
-    { firstName: 'Oudom', lastName: 'Ty', email: 'tyoudom168@gmail.com', phone: '016 689 737', joinDate: '1/2/2003' },
-    { firstName: 'Mike', lastName: 'Catty', email: 'cattymike168@gmail.com', phone: '016 683 732', joinDate: '1/2/2003' },
-];
+import { useState, useEffect } from 'react';
+import { api } from '@/lib/api';
 
 export default function MemberManagementPage() {
+    const [members, setMembers] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchMembers = () => {
+        setLoading(true);
+        api.readers.getAll()
+            .then(data => {
+                setMembers(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error('Failed to fetch members:', err);
+                setLoading(false);
+            });
+    };
+
+    useEffect(() => {
+        fetchMembers();
+    }, []);
+
+    const handleDelete = async (id: number) => {
+        if (confirm('Are you sure you want to delete this member?')) {
+            try {
+                await api.readers.delete(id);
+                fetchMembers();
+            } catch (err) {
+                console.error('Failed to delete member:', err);
+            }
+        }
+    };
+
     return (
         <div className="flex flex-col gap-6">
             <div className="flex justify-end">
@@ -58,25 +82,35 @@ export default function MemberManagementPage() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
-                        {membersData.map((member, i) => (
-                            <tr key={i} className="hover:bg-gray-50/50 transition-colors">
-                                <td className="px-6 py-4 text-sm font-medium text-gray-800">{member.firstName}</td>
-                                <td className="px-6 py-4 text-sm text-gray-600">{member.lastName}</td>
-                                <td className="px-6 py-4 text-sm text-gray-600">{member.email}</td>
-                                <td className="px-6 py-4 text-sm text-gray-600">{member.phone}</td>
-                                <td className="px-6 py-4 text-sm text-gray-600">{member.joinDate}</td>
-                                <td className="px-6 py-4">
-                                    <div className="flex gap-2">
-                                        <button className="px-4 py-1.5 bg-brand-orange text-white text-xs font-bold rounded-lg hover:opacity-90 transition-opacity">
-                                            Edit
-                                        </button>
-                                        <button className="px-4 py-1.5 bg-brand-red text-white text-xs font-bold rounded-lg hover:opacity-90 transition-opacity">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </td>
+                        {loading ? (
+                            <tr>
+                                <td colSpan={6} className="px-6 py-8 text-center text-gray-400">Loading...</td>
                             </tr>
-                        ))}
+                        ) : members.length > 0 ? (
+                            members.map((member) => (
+                                <tr key={member.userId} className="hover:bg-gray-50/50 transition-colors">
+                                    <td className="px-6 py-4 text-sm font-medium text-gray-800">{member.firstName}</td>
+                                    <td className="px-6 py-4 text-sm text-gray-600">{member.lastName}</td>
+                                    <td className="px-6 py-4 text-sm text-gray-600">{member.email}</td>
+                                    <td className="px-6 py-4 text-sm text-gray-600">{member.phoneNumber}</td>
+                                    <td className="px-6 py-4 text-sm text-gray-600">{member.joinDate}</td>
+                                    <td className="px-6 py-4">
+                                        <div className="flex gap-2">
+                                            <button
+                                                onClick={() => handleDelete(member.userId)}
+                                                className="p-2 text-brand-red hover:bg-red-50 rounded-lg transition-colors"
+                                            >
+                                                <Trash2 size={16} />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={6} className="px-6 py-8 text-center text-gray-400">No members found.</td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
             </div>

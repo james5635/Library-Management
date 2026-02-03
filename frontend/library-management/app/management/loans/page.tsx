@@ -1,15 +1,39 @@
 'use client';
 
-import { ArrowDown } from 'lucide-react';
-
-const loansData = [
-    { username: 'Pov Dara', staff: 'Yem Thida', issueDate: '2/3/2015', dueDate: '2/3/2016', returnDate: 'N/A' },
-    { username: 'Meas Thida', staff: 'Yi Da', issueDate: '2/3/2015', dueDate: '2/3/2016', returnDate: '2/9/2015' },
-    { username: 'Chan Samuth', staff: 'Lim Horn', issueDate: '2/3/2015', dueDate: '2/3/2016', returnDate: '2/7/2015' },
-    { username: 'Robert Julie', staff: 'Lam Qi', issueDate: '2/3/2015', dueDate: '2/3/2016', returnDate: '2/7/2015' },
-];
+import { ArrowDown, RotateCcw } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { api } from '@/lib/api';
 
 export default function LoanManagementPage() {
+    const [loans, setLoans] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchLoans = () => {
+        setLoading(true);
+        api.loans.getAll()
+            .then(data => {
+                setLoans(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error('Failed to fetch loans:', err);
+                setLoading(false);
+            });
+    };
+
+    useEffect(() => {
+        fetchLoans();
+    }, []);
+
+    const handleReturn = async (id: number) => {
+        try {
+            await api.loans.return(id);
+            fetchLoans();
+        } catch (err) {
+            console.error('Failed to return book:', err);
+        }
+    };
+
     return (
         <div className="flex flex-col gap-6">
             <div className="flex justify-end">
@@ -55,25 +79,40 @@ export default function LoanManagementPage() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
-                        {loansData.map((loan, i) => (
-                            <tr key={i} className="hover:bg-gray-50/50 transition-colors">
-                                <td className="px-6 py-4 text-sm font-medium text-gray-800">{loan.username}</td>
-                                <td className="px-6 py-4 text-sm text-gray-600">{loan.staff}</td>
-                                <td className="px-6 py-4 text-sm text-gray-600">{loan.issueDate}</td>
-                                <td className="px-6 py-4 text-sm text-gray-600">{loan.dueDate}</td>
-                                <td className="px-6 py-4 text-sm text-gray-600">{loan.returnDate}</td>
-                                <td className="px-6 py-4">
-                                    <div className="flex gap-2">
-                                        <button className="px-4 py-1.5 bg-brand-orange text-white text-xs font-bold rounded-lg hover:opacity-90 transition-opacity">
-                                            Edit
-                                        </button>
-                                        <button className="px-4 py-1.5 bg-brand-red text-white text-xs font-bold rounded-lg hover:opacity-90 transition-opacity">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </td>
+                        {loading ? (
+                            <tr>
+                                <td colSpan={6} className="px-6 py-8 text-center text-gray-400">Loading...</td>
                             </tr>
-                        ))}
+                        ) : loans.length > 0 ? (
+                            loans.map((loan) => (
+                                <tr key={loan.loanId} className="hover:bg-gray-50/50 transition-colors">
+                                    <td className="px-6 py-4 text-sm font-medium text-gray-800">
+                                        {loan.reader?.firstName} {loan.reader?.lastName}
+                                    </td>
+                                    <td className="px-6 py-4 text-sm text-gray-600">{loan.staff?.staffName}</td>
+                                    <td className="px-6 py-4 text-sm text-gray-600">{loan.issueDate}</td>
+                                    <td className="px-6 py-4 text-sm text-gray-600">{loan.dueDate}</td>
+                                    <td className="px-6 py-4 text-sm text-gray-600">{loan.returnDate || 'N/A'}</td>
+                                    <td className="px-6 py-4">
+                                        <div className="flex gap-2">
+                                            {loan.status !== 'RETURNED' && (
+                                                <button
+                                                    onClick={() => handleReturn(loan.loanId)}
+                                                    className="p-2 text-brand-teal hover:bg-teal-50 rounded-lg transition-colors"
+                                                    title="Mark as Returned"
+                                                >
+                                                    <RotateCcw size={16} />
+                                                </button>
+                                            )}
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={6} className="px-6 py-8 text-center text-gray-400">No loans found.</td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
             </div>

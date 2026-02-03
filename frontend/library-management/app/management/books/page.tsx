@@ -2,18 +2,41 @@
 
 import { ArrowDown, Edit2, Trash2 } from 'lucide-react';
 import Link from 'next/link';
-
-const booksData = [
-    { title: 'Searching For Her', edition: '1', price: '$1', status: 'Active', type: 'Physical', author: 'Rick Mofina' },
-    { title: 'For Love I Will', edition: '2', price: '$2', status: 'Inactive', type: 'Physical', author: 'C. D. Sterling' },
-    { title: 'Knot by Knot', edition: '4', price: '$4', status: 'Active', type: 'Both', author: 'Davis Moore' },
-    { title: 'The Happiness Handbook', edition: '1', price: '$1', status: 'Active', type: 'Physical', author: 'Landon Carter' },
-    { title: 'What Makes You Special', edition: '2', price: '$2', status: 'Active', type: 'Digital', author: 'Britt Hallowell' },
-    { title: 'Dalia Does a Mitzvah', edition: '3', price: '$3', status: 'Inactive', type: 'Digital', author: 'Jenna D.' },
-    { title: 'Of Mages and Makers', edition: '4', price: '$4', status: 'Active', type: 'Physical', author: 'Rel Carroll' },
-];
+import { useState, useEffect } from 'react';
+import { api } from '@/lib/api';
 
 export default function BookManagementPage() {
+    const [books, setBooks] = useState<any[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const fetchBooks = () => {
+        setLoading(true);
+        api.books.getAll()
+            .then(data => {
+                setBooks(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error('Failed to fetch books:', err);
+                setLoading(false);
+            });
+    };
+
+    useEffect(() => {
+        fetchBooks();
+    }, []);
+
+    const handleDelete = async (isbn: string) => {
+        if (confirm('Are you sure you want to delete this book?')) {
+            try {
+                await api.books.delete(isbn);
+                fetchBooks();
+            } catch (err) {
+                console.error('Failed to delete book:', err);
+            }
+        }
+    };
+
     return (
         <div className="flex flex-col gap-6">
             <div className="flex justify-end">
@@ -67,33 +90,45 @@ export default function BookManagementPage() {
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-100">
-                        {booksData.map((book, i) => (
-                            <tr key={i} className="hover:bg-gray-50/50 transition-colors">
-                                <td className="px-6 py-4 text-sm font-medium text-gray-800">{book.title}</td>
-                                <td className="px-6 py-4 text-sm text-gray-600">{book.edition}</td>
-                                <td className="px-6 py-4 text-sm font-bold text-gray-800">{book.price}</td>
-                                <td className="px-6 py-4 text-sm">
-                                    <span className={`px-3 py-1 rounded-full text-[10px] font-bold ${book.status === 'Active'
-                                            ? 'bg-green-100 text-green-600'
-                                            : 'bg-red-100 text-red-400'
-                                        }`}>
-                                        {book.status}
-                                    </span>
-                                </td>
-                                <td className="px-6 py-4 text-sm text-gray-600">{book.type}</td>
-                                <td className="px-6 py-4 text-sm text-gray-600">{book.author}</td>
-                                <td className="px-6 py-4">
-                                    <div className="flex gap-2">
-                                        <button className="px-4 py-1.5 bg-brand-orange text-white text-xs font-bold rounded-lg hover:opacity-90 transition-opacity">
-                                            Edit
-                                        </button>
-                                        <button className="px-4 py-1.5 bg-brand-red text-white text-xs font-bold rounded-lg hover:opacity-90 transition-opacity">
-                                            Delete
-                                        </button>
-                                    </div>
-                                </td>
+                        {loading ? (
+                            <tr>
+                                <td colSpan={7} className="px-6 py-8 text-center text-gray-400">Loading...</td>
                             </tr>
-                        ))}
+                        ) : books.length > 0 ? (
+                            books.map((book, i) => (
+                                <tr key={book.isbn} className="hover:bg-gray-50/50 transition-colors">
+                                    <td className="px-6 py-4 text-sm font-medium text-gray-800">{book.title}</td>
+                                    <td className="px-6 py-4 text-sm text-gray-600">{book.edition}</td>
+                                    <td className="px-6 py-4 text-sm font-bold text-gray-800">${book.price}</td>
+                                    <td className="px-6 py-4 text-sm">
+                                        <span className={`px-3 py-1 rounded-full text-[10px] font-bold bg-green-100 text-green-600`}>
+                                            Active
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4 text-sm text-gray-600">{book.bookType}</td>
+                                    <td className="px-6 py-4 text-sm text-gray-600">
+                                        {book.authors?.map((a: any) => `${a.firstName} ${a.lastName}`).join(', ') || 'N/A'}
+                                    </td>
+                                    <td className="px-6 py-4">
+                                        <div className="flex gap-2">
+                                            <button className="p-2 text-brand-orange hover:bg-orange-50 rounded-lg transition-colors">
+                                                <Edit2 size={16} />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(book.isbn)}
+                                                className="p-2 text-brand-red hover:bg-red-50 rounded-lg transition-colors"
+                                            >
+                                                <Trash2 size={16} />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan={7} className="px-6 py-8 text-center text-gray-400">No books found.</td>
+                            </tr>
+                        )}
                     </tbody>
                 </table>
             </div>

@@ -4,25 +4,27 @@ import { Book, Users } from 'lucide-react';
 import StatCard from '@/components/StatCard';
 import BookCard from '@/components/BookCard';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { api } from '@/lib/api';
 
 const categories = ['Popular', 'Recommended', 'Newest', 'Oldest'];
 
-const dummyBooks = [
-  { id: '1', title: 'Searching For Her', author: 'Rick Mofina', coverImage: '/static/UI/1.png' },
-  { id: '2', title: 'For Love I Will', author: 'C. D. Sterling', coverImage: '/static/UI/2.png' },
-  { id: '3', title: 'Knot by Knot', author: 'Davis Moore', coverImage: '/static/UI/3.png' },
-  { id: '4', title: 'The Happiness Handbook', author: 'Landon Carter', coverImage: '/static/UI/4.png' },
-  { id: '5', title: 'What Makes You Special', author: 'Britt Hallowell', coverImage: '/static/UI/5.png' },
-  { id: '6', title: 'Dalia Does a Mitzvah', author: 'Jenna D.', coverImage: '/static/UI/6.png' },
-  { id: '7', title: 'Of Mages and Makers', author: 'Rel Carroll', coverImage: '/static/UI/7.png' },
-  { id: '8', title: 'Manly Man of God', author: 'Katharine Strange', coverImage: '/static/UI/8.png' },
-  { id: '9', title: 'Dojo Dilemmas', author: 'Joseph Henry Cucci', coverImage: '/static/UI/9.png' },
-  { id: '10', title: 'What Makes You Special', author: 'Britt Hallowell', coverImage: '/static/UI/10.png' },
-];
-
 export default function DashboardPage() {
   const [activeCategory, setActiveCategory] = useState('Popular');
+  const [books, setBooks] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api.books.getAll()
+      .then(data => {
+        setBooks(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Failed to fetch books:', err);
+        setLoading(false);
+      });
+  }, []);
 
   return (
     <div className="flex gap-8">
@@ -44,29 +46,41 @@ export default function DashboardPage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-          {dummyBooks.map((book) => (
-            <BookCard
-              key={book.id}
-              id={book.id}
-              title={book.title}
-              author={book.author}
-              coverImage={book.coverImage}
-            />
-          ))}
-        </div>
+        {loading ? (
+          <div className="flex justify-center py-12">
+            <span className="text-gray-400">Loading books...</span>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            {books.length > 0 ? (
+              books.map((book) => (
+                <BookCard
+                  key={book.isbn}
+                  id={book.isbn}
+                  title={book.title}
+                  author={book.authors?.map((a: any) => `${a.firstName} ${a.lastName}`).join(', ') || 'Unknown'}
+                  coverImage={book.coverImage || `/static/UI/${Math.floor(Math.random() * 10) + 1}.png`}
+                />
+              ))
+            ) : (
+              <div className="col-span-full py-12 text-center text-gray-400">
+                No books found. Add some in the management panel!
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       <div className="w-[240px] flex flex-col gap-4">
         <StatCard
           icon={Book}
-          value="2341"
+          value={books.length.toString()}
           label="Books"
           iconBgColor="bg-brand-yellow"
         />
         <StatCard
           icon={Users}
-          value="28646"
+          value="0"
           label="Book Authors"
           iconBgColor="bg-blue-400"
         />
