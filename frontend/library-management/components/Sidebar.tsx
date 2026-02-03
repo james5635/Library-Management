@@ -16,8 +16,7 @@ import { cn } from '@/lib/utils';
 
 const sidebarItems = [
     { icon: LayoutDashboard, href: '/', label: 'Dashboard' },
-    { icon: LayoutGrid, href: '/librarian', label: 'Librarian' },
-    { icon: BookOpen, href: '/book/1', label: 'Books' },
+    { icon: LayoutGrid, href: '/management/books', label: 'Librarian' },
     { icon: MessageSquare, href: '/chatbot', label: 'Chatbot' },
     { icon: Bookmark, href: '/bookmark', label: 'Bookmark' },
 ];
@@ -37,7 +36,7 @@ export default function Sidebar({ isCollapsed }: SidebarProps) {
 
     return (
         <div className={cn(
-            "h-screen flex flex-col py-8 border-r bg-white sticky top-0 transition-all duration-300",
+            "h-screen flex flex-col py-8 border-r border-gray-100 dark:border-gray-800 bg-white dark:bg-black sticky top-0 transition-all duration-300",
             isCollapsed ? "w-[80px] items-center" : "w-[240px] px-4"
         )}>
             <div className="flex-1 flex flex-col gap-4">
@@ -50,8 +49,8 @@ export default function Sidebar({ isCollapsed }: SidebarProps) {
                             className={cn(
                                 "flex items-center gap-4 p-3 rounded-xl transition-all",
                                 isActive
-                                    ? "text-brand-teal bg-teal-50/50"
-                                    : "text-gray-400 hover:text-gray-600 hover:bg-gray-50"
+                                    ? "text-brand-teal bg-teal-50/50 dark:bg-teal-900/20"
+                                    : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
                             )}
                         >
                             <item.icon size={24} className="flex-shrink-0" />
@@ -73,8 +72,8 @@ export default function Sidebar({ isCollapsed }: SidebarProps) {
                             className={cn(
                                 "flex items-center gap-4 p-3 rounded-xl transition-all",
                                 isActive
-                                    ? "text-brand-teal bg-teal-50/50"
-                                    : "text-gray-400 hover:text-gray-600 hover:bg-gray-50"
+                                    ? "text-brand-teal bg-teal-50/50 dark:bg-teal-900/20"
+                                    : "text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
                             )}
                         >
                             <item.icon size={24} className="flex-shrink-0" />

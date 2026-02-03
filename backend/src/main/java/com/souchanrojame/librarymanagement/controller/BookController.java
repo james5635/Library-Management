@@ -14,7 +14,14 @@ public class BookController {
     private final BookRepository bookRepository;
 
     @GetMapping
-    public List<Book> getAllBooks() {
+    public List<Book> getAllBooks(@RequestParam(required = false) String search, 
+                                 @RequestParam(required = false) String category) {
+        if (search != null && !search.isEmpty()) {
+            return bookRepository.searchBooks(search);
+        }
+        if (category != null && !category.isEmpty()) {
+            return bookRepository.findByCategoryCategoryName(category);
+        }
         return bookRepository.findAll();
     }
 

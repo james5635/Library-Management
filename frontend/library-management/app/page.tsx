@@ -4,18 +4,29 @@ import { Book, Users } from 'lucide-react';
 import StatCard from '@/components/StatCard';
 import BookCard from '@/components/BookCard';
 import { cn } from '@/lib/utils';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { api } from '@/lib/api';
+import { useSearchParams } from 'next/navigation';
 
 const categories = ['Popular', 'Recommended', 'Newest', 'Oldest'];
 
 export default function DashboardPage() {
+  return (
+    <Suspense fallback={<div>Loading dashboard...</div>}>
+      <DashboardContent />
+    </Suspense>
+  );
+}
+
+function DashboardContent() {
   const [activeCategory, setActiveCategory] = useState('Popular');
   const [books, setBooks] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(() => {
-    api.books.getAll()
+  const fetchBooks = (query?: string, category?: string) => {
+    setLoading(true);
+    api.books.getAll(query, category)
       .then(data => {
         setBooks(data);
         setLoading(false);
@@ -24,7 +35,14 @@ export default function DashboardPage() {
         console.error('Failed to fetch books:', err);
         setLoading(false);
       });
-  }, []);
+  };
+
+  const searchParams = useSearchParams();
+  const q = searchParams.get('q');
+
+  useEffect(() => {
+    fetchBooks(q || undefined, activeCategory === 'Popular' ? undefined : activeCategory);
+  }, [activeCategory, q]);
 
   return (
     <div className="flex gap-8">

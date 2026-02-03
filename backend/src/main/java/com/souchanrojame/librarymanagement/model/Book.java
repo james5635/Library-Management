@@ -18,6 +18,12 @@ public class Book {
     private String title;
     private String edition;
     private BigDecimal price;
+    
+    @Column(columnDefinition = "TEXT")
+    private String coverImage;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
     @Enumerated(EnumType.STRING)
     private BookType bookType;

@@ -24,6 +24,9 @@ public class DigitalAsset {
 
     private BigDecimal fileSizeMB;
     private String downloadUrl;
+    
+    @Column(columnDefinition = "TEXT")
+    private String content;
 
     @Enumerated(EnumType.STRING)
     private AccessLevel accessLevel;

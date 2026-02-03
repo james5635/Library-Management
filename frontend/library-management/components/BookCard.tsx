@@ -1,7 +1,7 @@
 'use client';
 
+import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
 
 interface BookCardProps {
     id: string;
@@ -13,8 +13,8 @@ interface BookCardProps {
 
 export default function BookCard({ id, title, author, coverImage, showButtons = false }: BookCardProps) {
     return (
-        <div className="flex flex-col gap-3 group">
-            <div className="relative aspect-[3/4] w-full rounded-xl overflow-hidden shadow-sm transition-transform group-hover:scale-[1.02] duration-300">
+        <Link href={`/book/${id}`} className="flex flex-col gap-3 group cursor-pointer">
+            <div className="relative aspect-[3/4] w-full rounded-xl overflow-hidden shadow-sm transition-transform group-hover:scale-[1.02] duration-300 border border-gray-100 dark:border-gray-800">
                 <Image
                     src={coverImage}
                     alt={title}
@@ -23,8 +23,8 @@ export default function BookCard({ id, title, author, coverImage, showButtons = 
                 />
             </div>
             <div className="flex flex-col">
-                <h3 className="text-sm font-bold text-gray-800 line-clamp-1">{title}</h3>
-                <p className="text-[10px] font-medium text-gray-400">{author}</p>
+                <h3 className="text-sm font-bold text-gray-800 dark:text-gray-100 line-clamp-1 group-hover:text-brand-teal transition-colors">{title}</h3>
+                <p className="text-[10px] font-medium text-gray-400 dark:text-gray-500">{author}</p>
             </div>
 
             {showButtons && (
@@ -37,6 +37,6 @@ export default function BookCard({ id, title, author, coverImage, showButtons = 
                     </button>
                 </div>
             )}
-        </div>
+        </Link>
     );
 }
