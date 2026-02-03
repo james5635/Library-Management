@@ -13,19 +13,7 @@ import {
     Settings
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
-const sidebarItems = [
-    { icon: LayoutDashboard, href: '/', label: 'Dashboard' },
-    { icon: LayoutGrid, href: '/librarian', label: 'Librarian' },
-    { icon: BookOpen, href: '/books', label: 'Books' },
-    { icon: MessageSquare, href: '/chatbot', label: 'Chatbot' },
-    { icon: Bookmark, href: '/bookmark', label: 'Bookmark' },
-];
-
-const bottomItems = [
-    { icon: HelpCircle, href: '/help', label: 'Help' },
-    { icon: Settings, href: '/settings', label: 'Settings' },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface SidebarProps {
     isCollapsed: boolean;
@@ -33,6 +21,20 @@ interface SidebarProps {
 
 export default function Sidebar({ isCollapsed }: SidebarProps) {
     const pathname = usePathname();
+    const { t } = useLanguage();
+
+    const sidebarItems = [
+        { icon: LayoutDashboard, href: '/', label: t.dashboard },
+        { icon: LayoutGrid, href: '/librarian', label: t.librarian },
+        { icon: BookOpen, href: '/books', label: t.books },
+        { icon: MessageSquare, href: '/chatbot', label: t.chatbot },
+        { icon: Bookmark, href: '/bookmark', label: t.bookmark },
+    ];
+
+    const bottomItems = [
+        { icon: HelpCircle, href: '/help', label: t.help },
+        { icon: Settings, href: '/settings', label: t.settings },
+    ];
 
     return (
         <div className={cn(

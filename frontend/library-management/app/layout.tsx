@@ -18,6 +18,8 @@ export const metadata: Metadata = {
 };
 
 import MainLayout from "@/components/MainLayout";
+import SettingsInitializer from "@/components/SettingsInitializer";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 export default function RootLayout({
   children,
@@ -25,13 +27,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <MainLayout>
-          {children}
-        </MainLayout>
+        <SettingsInitializer />
+        <LanguageProvider>
+          <MainLayout>
+            {children}
+          </MainLayout>
+        </LanguageProvider>
       </body>
     </html>
   );
