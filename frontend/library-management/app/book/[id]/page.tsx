@@ -4,12 +4,18 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { api, STORAGE_BASE_URL } from '@/lib/api';
+import { Heart, Lock, BookOpen } from 'lucide-react';
 
 export default function BookViewerPage() {
     const params = useParams();
     const [book, setBook] = useState<any>(null);
     const [assets, setAssets] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [hasAccess, setHasAccess] = useState(false);
+    const [isBookmarked, setIsBookmarked] = useState(false);
+    const [checkingAccess, setCheckingAccess] = useState(true);
+
+    const userEmail = "chanrojame@example.com";
 
     useEffect(() => {
         if (params.id) {
@@ -31,8 +37,47 @@ export default function BookViewerPage() {
                     console.error('Failed to fetch assets:', err);
                     setLoading(false);
                 });
+
+            // Check Access
+            api.loans.checkActive(userEmail, params.id as string)
+                .then(res => {
+                    setHasAccess(res.hasActiveLoan);
+                    setCheckingAccess(false);
+                })
+                .catch(() => setCheckingAccess(false));
+
+            // Check Bookmark
+            api.bookmarks.check(userEmail, params.id as string)
+                .then(res => setIsBookmarked(res.isBookmarked))
+                .catch(console.error);
         }
     }, [params.id]);
+
+    const handleToggleBookmark = async () => {
+        try {
+            const res = await api.bookmarks.toggle(userEmail, params.id as string);
+            setIsBookmarked(res.status === 'added');
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const handleBorrow = async () => {
+        try {
+            // Mock borrow for now since we don't have a reader selection in UI here
+            // In a real app, this would redirect to a borrow confirmation or open a modal
+            await api.loans.create({
+                book: { isbn: params.id },
+                reader: { email: userEmail },
+                dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                status: 'BORROWED'
+            });
+            setHasAccess(true);
+            alert("Book borrowed successfully!");
+        } catch (err) {
+            alert("Failed to borrow book.");
+        }
+    };
 
     if (loading) return <div className="p-8 text-center text-gray-400">Loading document...</div>;
     if (!book) return <div className="p-8 text-center text-red-400">Book not found.</div>;
@@ -49,8 +94,43 @@ export default function BookViewerPage() {
     const fullContentUrl = getFullUrl(digitalContentUrl);
     const fullCoverUrl = getFullUrl(book?.coverImage) || "/static/UI/2.png";
 
+    if (checkingAccess) return <div className="p-8 text-center text-gray-400">Verifying access...</div>;
+
+    if (!hasAccess) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6 text-center">
+                <div className="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-gray-400">
+                    <Lock size={40} />
+                </div>
+                <div className="flex flex-col gap-2">
+                    <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 transition-colors">Reserved content</h2>
+                    <p className="text-gray-500 max-w-md">You need to borrow this book before you can access its full content.</p>
+                </div>
+                <button
+                    onClick={handleBorrow}
+                    className="bg-brand-teal text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2"
+                >
+                    <BookOpen size={20} />
+                    Borrow Now
+                </button>
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col items-center gap-8 py-4">
+            <div className="w-full max-w-[1000px] flex justify-end px-4">
+                <button
+                    onClick={handleToggleBookmark}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all ${isBookmarked
+                            ? 'bg-brand-red border-brand-red text-white'
+                            : 'border-gray-200 dark:border-gray-800 text-gray-500 hover:border-brand-red hover:text-brand-red'
+                        }`}
+                >
+                    <Heart size={18} fill={isBookmarked ? "currentColor" : "none"} />
+                    {isBookmarked ? 'Bookmarked' : 'Bookmark'}
+                </button>
+            </div>
             {isPdf ? (
                 <div className="w-full max-w-[1000px] h-[80vh] bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
                     <iframe

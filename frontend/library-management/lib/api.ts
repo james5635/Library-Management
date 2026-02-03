@@ -56,7 +56,19 @@ export const api = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(loan)
         }).then(handleResponse),
-        return: (id: number) => fetch(`${API_BASE_URL}/loans/${id}/return`, { method: 'PUT' }).then(handleResponse)
+        returnBook: (id: number) => fetch(`${API_BASE_URL}/loans/${id}/return`, {
+            method: 'PUT'
+        }).then(handleResponse),
+        checkActive: (email: string, isbn: string) => fetch(`${API_BASE_URL}/loans/check?email=${email}&isbn=${isbn}`).then(handleResponse)
+    },
+    bookmarks: {
+        getAll: (email: string) => fetch(`${API_BASE_URL}/bookmarks/user/${email}`).then(handleResponse),
+        toggle: (email: string, isbn: string) => fetch(`${API_BASE_URL}/bookmarks/toggle`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, isbn })
+        }).then(handleResponse),
+        check: (email: string, isbn: string) => fetch(`${API_BASE_URL}/bookmarks/check?email=${email}&isbn=${isbn}`).then(handleResponse)
     },
     notifications: {
         getAll: () => fetch(`${API_BASE_URL}/notifications`).then(handleResponse),
@@ -92,5 +104,14 @@ export const api = {
                 body: formData
             }).then(handleResponse);
         }
+    },
+    fines: {
+        getAll: () => fetch(`${API_BASE_URL}/fines`).then(handleResponse),
+        pay: (id: number) => fetch(`${API_BASE_URL}/fines/${id}/pay`, {
+            method: 'PATCH'
+        }).then(handleResponse)
+    },
+    reports: {
+        getStats: () => fetch(`${API_BASE_URL}/reports/stats`).then(handleResponse)
     }
 };
