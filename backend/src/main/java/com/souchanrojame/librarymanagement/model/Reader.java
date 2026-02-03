@@ -23,5 +23,6 @@ public class Reader {
     
     private String phoneNumber;
     private String address;
+    private String profileImage;
     private LocalDate joinDate;
 }

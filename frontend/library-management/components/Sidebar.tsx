@@ -23,7 +23,6 @@ const sidebarItems = [
 ];
 
 const bottomItems = [
-    { icon: User, href: '/profile', label: 'Profile' },
     { icon: HelpCircle, href: '/help', label: 'Help' },
     { icon: Settings, href: '/settings', label: 'Settings' },
 ];

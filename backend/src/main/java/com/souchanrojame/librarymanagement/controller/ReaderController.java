@@ -26,6 +26,9 @@ public class ReaderController {
     @PostMapping
     public Reader createReader(@RequestBody Reader reader) {
         if (reader.getJoinDate() == null) reader.setJoinDate(java.time.LocalDate.now());
+        if (reader.getProfileImage() == null || reader.getProfileImage().isEmpty()) {
+            reader.setProfileImage("/static/UI/login.png");
+        }
         return readerRepository.save(reader);
     }
 
@@ -37,6 +40,7 @@ public class ReaderController {
         existing.setEmail(reader.getEmail());
         existing.setPhoneNumber(reader.getPhoneNumber());
         existing.setAddress(reader.getAddress());
+        existing.setProfileImage(reader.getProfileImage());
         return readerRepository.save(existing);
     }
 

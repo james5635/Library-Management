@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { api } from '@/lib/api';
-import { UserPlus, Edit2, Trash2, X, Check, Search, Mail, Phone, MapPin } from 'lucide-react';
+import { UserPlus, Edit2, Trash2, X, Check, Search, Mail, Phone, MapPin, Camera, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function MemberManagementPage() {
@@ -15,7 +15,8 @@ export default function MemberManagementPage() {
         lastName: '',
         email: '',
         phoneNumber: '',
-        address: ''
+        address: '',
+        profileImage: ''
     });
     const [submitting, setSubmitting] = useState(false);
 
@@ -36,6 +37,19 @@ export default function MemberManagementPage() {
             });
     };
 
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        try {
+            const res = await api.files.upload(file);
+            setFormData({ ...formData, profileImage: res.url || res.path });
+        } catch (err) {
+            console.error(err);
+            alert('Failed to upload image.');
+        }
+    };
+
     const handleOpenModal = (member: any = null) => {
         if (member) {
             setEditingMember(member);
@@ -44,7 +58,8 @@ export default function MemberManagementPage() {
                 lastName: member.lastName,
                 email: member.email,
                 phoneNumber: member.phoneNumber || '',
-                address: member.address || ''
+                address: member.address || '',
+                profileImage: member.profileImage || ''
             });
         } else {
             setEditingMember(null);
@@ -53,7 +68,8 @@ export default function MemberManagementPage() {
                 lastName: '',
                 email: '',
                 phoneNumber: '',
-                address: ''
+                address: '',
+                profileImage: ''
             });
         }
         setShowModal(true);
@@ -129,8 +145,18 @@ export default function MemberManagementPage() {
                                     <tr key={member.userId} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/30 transition-colors group">
                                         <td className="px-8 py-5">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-brand-teal font-bold uppercase">
-                                                    {member.firstName[0]}{member.lastName[0]}
+                                                <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 relative border border-gray-100 dark:border-gray-800">
+                                                    {member.profileImage ? (
+                                                        <img
+                                                            src={member.profileImage.startsWith('http') || member.profileImage.startsWith('/static') ? member.profileImage : `http://localhost:8080${member.profileImage}`}
+                                                            alt=""
+                                                            className="w-full h-full object-cover"
+                                                        />
+                                                    ) : (
+                                                        <div className="w-full h-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center text-brand-teal font-bold uppercase">
+                                                            {member.firstName[0]}{member.lastName[0]}
+                                                        </div>
+                                                    )}
                                                 </div>
                                                 <div className="flex flex-col">
                                                     <span className="text-sm font-bold text-gray-800 dark:text-gray-100">{member.firstName} {member.lastName}</span>
@@ -202,6 +228,29 @@ export default function MemberManagementPage() {
                             </div>
 
                             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                                <div className="flex flex-col items-center mb-4">
+                                    <div className="relative group">
+                                        <div className="w-24 h-24 rounded-full overflow-hidden border-2 border-teal-50 dark:border-teal-900 shadow-md relative">
+                                            {formData.profileImage ? (
+                                                <img
+                                                    src={formData.profileImage.startsWith('http') || formData.profileImage.startsWith('/static') ? formData.profileImage : `http://localhost:8080${formData.profileImage}`}
+                                                    alt="Preview"
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            ) : (
+                                                <div className="w-full h-full bg-gray-50 dark:bg-gray-800 flex items-center justify-center text-gray-300">
+                                                    <User size={40} />
+                                                </div>
+                                            )}
+                                        </div>
+                                        <label className="absolute bottom-0 right-0 bg-brand-teal text-white p-2 rounded-full shadow-lg cursor-pointer hover:scale-110 transition-transform">
+                                            <Camera size={14} />
+                                            <input type="file" className="hidden" accept="image/*" onChange={handleFileChange} />
+                                        </label>
+                                    </div>
+                                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-2">Profile Picture</p>
+                                </div>
+
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="flex flex-col gap-2">
                                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-2">First Name</label>
