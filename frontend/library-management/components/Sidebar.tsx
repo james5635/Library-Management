@@ -8,12 +8,12 @@ import {
     BookOpen,
     MessageSquare,
     Bookmark,
-    User,
     HelpCircle,
     Settings
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface SidebarProps {
     isCollapsed: boolean;
@@ -22,12 +22,13 @@ interface SidebarProps {
 export default function Sidebar({ isCollapsed }: SidebarProps) {
     const pathname = usePathname();
     const { t } = useLanguage();
+    const { isStaff } = useAuth();
 
     const sidebarItems = [
         { icon: LayoutDashboard, href: '/', label: t.dashboard },
-        { icon: LayoutGrid, href: '/librarian', label: t.librarian },
+        ...(isStaff() ? [{ icon: LayoutGrid, href: '/librarian', label: t.librarian }] : []),
         { icon: BookOpen, href: '/books', label: t.books },
-        { icon: MessageSquare, href: '/chatbot', label: t.chatbot },
+        { icon: MessageSquare, href: '/chatbot', label: t.aiAssistant },
         { icon: Bookmark, href: '/bookmark', label: t.bookmark },
     ];
 

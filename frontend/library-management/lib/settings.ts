@@ -1,6 +1,6 @@
 export interface AppSettings {
     fontSize: 'small' | 'medium' | 'large';
-    language: 'en' | 'km' | 'ja';
+    language: 'en' | 'km' | 'ja' | 'zh' | 'ko';
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
@@ -17,7 +17,9 @@ export const FONT_SIZES = {
 export const LANGUAGES = [
     { code: 'en', name: 'English', flag: '🇺🇸' },
     { code: 'km', name: 'Khmer', flag: '🇰🇭' },
-    { code: 'ja', name: 'Japanese', flag: '🇯🇵' }
+    { code: 'ja', name: 'Japanese', flag: '🇯🇵' },
+    { code: 'zh', name: 'Chinese', flag: '🇨🇳' },
+    { code: 'ko', name: 'Korean', flag: '🇰🇷' }
 ];
 
 export function getSettings(): AppSettings {
@@ -40,8 +42,6 @@ export function saveSettings(settings: AppSettings): void {
 
     try {
         localStorage.setItem('app-settings', JSON.stringify(settings));
-
-        // Apply font size immediately
         document.documentElement.style.setProperty('--base-font-size', FONT_SIZES[settings.fontSize]);
     } catch (error) {
         console.error('Failed to save settings:', error);
@@ -50,7 +50,5 @@ export function saveSettings(settings: AppSettings): void {
 
 export function applySettings(settings: AppSettings): void {
     if (typeof window === 'undefined') return;
-
-    // Apply font size
     document.documentElement.style.setProperty('--base-font-size', FONT_SIZES[settings.fontSize]);
 }

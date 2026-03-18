@@ -1,136 +1,98 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Type, Globe, Check } from 'lucide-react';
 import { getSettings, saveSettings, FONT_SIZES, LANGUAGES, AppSettings } from '@/lib/settings';
 import { useLanguage } from '@/contexts/LanguageContext';
+import type { Language } from '@/lib/translations';
+import { Check, Globe, Type } from 'lucide-react';
 
 export default function SettingsPage() {
-    const [settings, setSettings] = useState<AppSettings>(getSettings());
+    const { t, language, setLanguage } = useLanguage();
+    const [fontSize, setFontSize] = useState<AppSettings['fontSize']>('medium');
     const [saved, setSaved] = useState(false);
-    const { t, setLanguage } = useLanguage();
 
     useEffect(() => {
-        // Load settings on mount
-        setSettings(getSettings());
+        const settings = getSettings();
+        setFontSize(settings.fontSize);
     }, []);
 
-    const handleFontSizeChange = (size: 'small' | 'medium' | 'large') => {
-        const newSettings = { ...settings, fontSize: size };
-        setSettings(newSettings);
-        saveSettings(newSettings);
-        showSavedMessage();
-    };
-
-    const handleLanguageChange = (lang: 'en' | 'km' | 'ja') => {
-        const newSettings = { ...settings, language: lang };
-        setSettings(newSettings);
-        saveSettings(newSettings);
-        setLanguage(lang); // Trigger language change in context
-        showSavedMessage();
-    };
-
-    const showSavedMessage = () => {
+    const handleSave = () => {
+        saveSettings({ fontSize, language });
         setSaved(true);
-        setTimeout(() => setSaved(false), 2000);
+        setTimeout(() => setSaved(false), 2500);
     };
 
     return (
-        <div className="max-w-4xl mx-auto py-10 px-4">
-            <div className="flex flex-col gap-8">
-                {/* Font Size Section */}
-                <div className="bg-white dark:bg-gray-900 rounded-[40px] p-8 border border-gray-100 dark:border-gray-800 shadow-sm transition-colors">
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className="w-12 h-12 rounded-2xl bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-                            <Type className="text-brand-teal" size={24} />
-                        </div>
-                        <div>
-                            <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 italic">{t.fontSize}</h2>
-                            <p className="text-xs text-gray-400">Adjust text size for better readability</p>
-                        </div>
+        <div className="max-w-[600px] mx-auto py-8 flex flex-col gap-8">
+            {/* Font Size */}
+            <div className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 p-8">
+                <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 rounded-xl bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center">
+                        <Type size={20} className="text-orange-500" />
                     </div>
-
-                    <div className="grid grid-cols-3 gap-4">
-                        {(['small', 'medium', 'large'] as const).map((size) => (
-                            <button
-                                key={size}
-                                onClick={() => handleFontSizeChange(size)}
-                                className={`relative p-6 rounded-2xl border-2 transition-all ${settings.fontSize === size
-                                    ? 'border-brand-teal bg-teal-50 dark:bg-teal-900/20'
-                                    : 'border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700'
-                                    }`}
-                            >
-                                {settings.fontSize === size && (
-                                    <div className="absolute top-3 right-3 w-6 h-6 rounded-full bg-brand-teal flex items-center justify-center">
-                                        <Check size={14} className="text-white" />
-                                    </div>
-                                )}
-                                <div className="text-center">
-                                    <div className={`font-bold mb-2 ${size === 'small' ? 'text-sm' : size === 'medium' ? 'text-base' : 'text-lg'
-                                        } text-gray-800 dark:text-gray-100`}>
-                                        Aa
-                                    </div>
-                                    <div className="text-xs font-bold text-gray-400 uppercase tracking-widest">
-                                        {t[size]}
-                                    </div>
-                                    <div className="text-[10px] text-gray-400 mt-1">
-                                        {FONT_SIZES[size]}
-                                    </div>
-                                </div>
-                            </button>
-                        ))}
+                    <div>
+                        <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">{t.fontSize}</h2>
+                        <p className="text-[10px] text-gray-400 uppercase tracking-widest">Choose your preferred text size</p>
                     </div>
                 </div>
-
-                {/* Language Section */}
-                <div className="bg-white dark:bg-gray-900 rounded-[40px] p-8 border border-gray-100 dark:border-gray-800 shadow-sm transition-colors">
-                    <div className="flex items-center gap-3 mb-6">
-                        <div className="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                            <Globe className="text-blue-500" size={24} />
-                        </div>
-                        <div>
-                            <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 italic">{t.language}</h2>
-                            <p className="text-xs text-gray-400">Choose your preferred language</p>
-                        </div>
-                    </div>
-
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                        {LANGUAGES.map((lang) => (
-                            <button
-                                key={lang.code}
-                                onClick={() => handleLanguageChange(lang.code as any)}
-                                className={`relative p-5 rounded-2xl border-2 transition-all ${settings.language === lang.code
-                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                                    : 'border-gray-100 dark:border-gray-800 hover:border-gray-200 dark:hover:border-gray-700'
-                                    }`}
-                            >
-                                {settings.language === lang.code && (
-                                    <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center">
-                                        <Check size={12} className="text-white" />
-                                    </div>
-                                )}
-                                <div className="text-center">
-                                    <div className="text-3xl mb-2">{lang.flag}</div>
-                                    <div className="text-sm font-bold text-gray-800 dark:text-gray-100">
-                                        {lang.name}
-                                    </div>
-                                    <div className="text-[10px] text-gray-400 uppercase tracking-widest mt-1">
-                                        {lang.code}
-                                    </div>
-                                </div>
-                            </button>
-                        ))}
-                    </div>
+                <div className="flex gap-3">
+                    {(['small', 'medium', 'large'] as const).map(s => (
+                        <button
+                            key={s}
+                            onClick={() => setFontSize(s)}
+                            className={`flex-1 py-4 rounded-2xl text-sm font-bold transition-all ${
+                                fontSize === s
+                                    ? 'bg-brand-teal text-white shadow-lg shadow-teal-500/20'
+                                    : 'bg-gray-50 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
+                            }`}
+                        >
+                            {t[s]}
+                        </button>
+                    ))}
                 </div>
-
-                {/* Save Indicator */}
-                {saved && (
-                    <div className="fixed bottom-8 right-8 bg-brand-teal text-white px-6 py-3 rounded-2xl shadow-2xl flex items-center gap-3 animate-in slide-in-from-bottom-4 duration-300">
-                        <Check size={20} />
-                        <span className="font-bold">{t.settingsSaved}</span>
-                    </div>
-                )}
             </div>
+
+            {/* Language */}
+            <div className="bg-white dark:bg-gray-900 rounded-[32px] border border-gray-100 dark:border-gray-800 p-8">
+                <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center">
+                        <Globe size={20} className="text-blue-500" />
+                    </div>
+                    <div>
+                        <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">{t.language}</h2>
+                        <p className="text-[10px] text-gray-400 uppercase tracking-widest">Select your language</p>
+                    </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                    {LANGUAGES.map(lang => (
+                        <button
+                            key={lang.code}
+                            onClick={() => setLanguage(lang.code as Language)}
+                            className={`flex items-center gap-3 py-4 px-5 rounded-2xl transition-all ${
+                                language === lang.code
+                                    ? 'bg-blue-50 dark:bg-blue-900/20 border-2 border-blue-200 dark:border-blue-800'
+                                    : 'bg-gray-50 dark:bg-gray-800 border-2 border-transparent hover:bg-gray-100 dark:hover:bg-gray-700'
+                            }`}
+                        >
+                            <span className="text-xl">{lang.flag}</span>
+                            <span className="text-sm font-bold text-gray-700 dark:text-gray-200">{lang.name}</span>
+                            {language === lang.code && <Check size={18} className="ml-auto text-blue-500" />}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
+            {/* Save */}
+            <button
+                onClick={handleSave}
+                className="bg-brand-teal text-white py-4 rounded-2xl font-bold shadow-lg shadow-teal-500/20 hover:scale-[1.02] transition-transform text-sm"
+            >
+                {saved ? (
+                    <span className="flex items-center justify-center gap-2">
+                        <Check size={18} /> {t.settingsSaved}
+                    </span>
+                ) : t.save}
+            </button>
         </div>
     );
 }

@@ -10,7 +10,6 @@ const handleResponse = async (res: Response) => {
         } catch (e) { }
         throw new Error(errorMsg);
     }
-    // Check if body is empty
     const contentType = res.headers.get("content-type");
     if (contentType && contentType.includes("application/json")) {
         return res.json();
@@ -99,6 +98,11 @@ export const api = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(credentials)
+        }).then(handleResponse),
+        register: (data: any) => fetch(`${API_BASE_URL}/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
         }).then(handleResponse)
     },
     files: {
@@ -119,5 +123,61 @@ export const api = {
     },
     reports: {
         getStats: () => fetch(`${API_BASE_URL}/reports/stats`).then(handleResponse)
+    },
+    staff: {
+        getAll: () => fetch(`${API_BASE_URL}/staff`).then(handleResponse),
+        getOne: (id: number) => fetch(`${API_BASE_URL}/staff/${id}`).then(handleResponse),
+        create: (staff: any) => fetch(`${API_BASE_URL}/staff`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(staff)
+        }).then(handleResponse),
+        update: (id: number, staff: any) => fetch(`${API_BASE_URL}/staff/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(staff)
+        }).then(handleResponse),
+        delete: (id: number) => fetch(`${API_BASE_URL}/staff/${id}`, { method: 'DELETE' }).then(handleResponse)
+    },
+    interactions: {
+        toggleLike: (isbn: string, email: string) => fetch(`${API_BASE_URL}/books/${isbn}/like`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        }).then(handleResponse),
+        getLikes: (isbn: string, email?: string) => {
+            const q = email ? `?email=${email}` : '';
+            return fetch(`${API_BASE_URL}/books/${isbn}/likes${q}`).then(handleResponse);
+        },
+        getComments: (isbn: string) => fetch(`${API_BASE_URL}/books/${isbn}/comments`).then(handleResponse),
+        addComment: (isbn: string, data: { email: string; name: string; content: string }) =>
+            fetch(`${API_BASE_URL}/books/${isbn}/comments`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(handleResponse)
+    },
+    reservations: {
+        getAll: () => fetch(`${API_BASE_URL}/reservations`).then(handleResponse),
+        create: (isbn: string, email: string) => fetch(`${API_BASE_URL}/reservations`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ isbn, email })
+        }).then(handleResponse),
+        cancel: (id: number) => fetch(`${API_BASE_URL}/reservations/${id}/cancel`, {
+            method: 'PUT'
+        }).then(handleResponse)
+    },
+    ai: {
+        summarize: (isbn: string) => fetch(`${API_BASE_URL}/ai/summarize`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ isbn })
+        }).then(handleResponse),
+        ask: (question: string) => fetch(`${API_BASE_URL}/ai/ask`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question })
+        }).then(handleResponse)
     }
 };

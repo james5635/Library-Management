@@ -21,5 +21,16 @@ public class Staff {
     
     private String password;
     
+    @Column(unique = true)
+    private String email;
+    
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private StaffRole role = StaffRole.BORROWER;
+    
     private Boolean canManageDigital;
+
+    public enum StaffRole {
+        ADMIN, LIBRARIAN, BORROWER
+    }
 }

@@ -19,11 +19,21 @@ public class Book {
     private String edition;
     private BigDecimal price;
     
-    private String coverImage; // Now stores the path/URL
+    private String coverImage;
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Enumerated(EnumType.STRING)
     private BookType bookType;
+
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private BookStatus status = BookStatus.AVAILABLE;
+
+    @Builder.Default
+    private Integer totalCopies = 1;
+    @Builder.Default
+    private Integer availableCopies = 1;
 
     @ManyToOne
     @JoinColumn(name = "publisher_id")
@@ -43,5 +53,9 @@ public class Book {
 
     public enum BookType {
         PHYSICAL, DIGITAL, BOTH
+    }
+
+    public enum BookStatus {
+        AVAILABLE, BORROWED, RESERVED, LOST
     }
 }
