@@ -203,11 +203,11 @@ export default function ProfilePage() {
                             <h2 className="text-2xl font-bold mb-6 text-gray-800 dark:text-gray-100 flex items-center gap-2">
                                 <BookOpen className="text-blue-500" /> Borrowed Books
                             </h2>
-                            {loans.length === 0 ? (
-                                <div className="text-gray-500 py-8 text-center bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">You haven't borrowed any books yet.</div>
+                            {loans.filter(loan => loan.status !== 'RETURNED').length === 0 ? (
+                                <div className="text-gray-500 py-8 text-center bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-dashed border-gray-200 dark:border-gray-700">You don't have any active borrowed books at the moment.</div>
                             ) : (
                                 <div className="grid gap-4">
-                                    {loans.map((loan) => (
+                                    {loans.filter(loan => loan.status !== 'RETURNED').map((loan) => (
                                         <div key={loan.loanId} className="flex gap-4 bg-gray-50 dark:bg-gray-900 p-4 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm">
                                             {loan.book?.coverImage && (
                                                 <div className="w-16 h-24 relative rounded overflow-hidden flex-shrink-0">
@@ -219,12 +219,32 @@ export default function ProfilePage() {
                                                     {loan.book?.title}
                                                 </Link>
                                                 <div className="text-sm text-gray-500 mt-1">Due: {loan.dueDate}</div>
-                                                <div className={`text-xs inline-block mt-2 px-2 py-1 rounded-full font-bold ${
-                                                    loan.status === 'BORROWED' ? 'bg-blue-100 text-blue-700' :
-                                                    loan.status === 'RETURNED' ? 'bg-green-100 text-green-700' :
-                                                    'bg-red-100 text-red-700'
-                                                }`}>
-                                                    {loan.status}
+                                                <div className="flex items-center gap-4 mt-2">
+                                                    <div className={`text-xs inline-block px-2 py-1 rounded-full font-bold ${
+                                                        loan.status === 'BORROWED' ? 'bg-blue-100 text-blue-700' :
+                                                        loan.status === 'RETURNED' ? 'bg-green-100 text-green-700' :
+                                                        'bg-red-100 text-red-700'
+                                                    }`}>
+                                                        {loan.status}
+                                                    </div>
+                                                    {loan.status === 'BORROWED' && (
+                                                        <button 
+                                                            onClick={async () => {
+                                                                try {
+                                                                    await api.loans.returnBook(loan.loanId);
+                                                                    if (user?.email) {
+                                                                        const updatedLoans = await api.loans.getByUser(user.email);
+                                                                        setLoans(updatedLoans);
+                                                                    }
+                                                                } catch (error) {
+                                                                    console.error('Failed to return book:', error);
+                                                                }
+                                                            }}
+                                                            className="text-xs font-bold text-brand-teal bg-brand-teal/10 px-3 py-1 rounded-full hover:bg-brand-teal hover:text-white transition-colors"
+                                                        >
+                                                            Return Book
+                                                        </button>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>

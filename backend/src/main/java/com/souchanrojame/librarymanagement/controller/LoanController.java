@@ -52,15 +52,40 @@ public class LoanController {
                 .status(Loan.LoanStatus.BORROWED)
                 .build();
 
+        // Update book availability
+        if (book.getAvailableCopies() > 0) {
+            book.setAvailableCopies(book.getAvailableCopies() - 1);
+            if (book.getAvailableCopies() == 0) {
+                book.setStatus(Book.BookStatus.BORROWED);
+            }
+            bookRepository.save(book);
+        } else {
+            throw new RuntimeException("No copies available for borrowing.");
+        }
+
         return loanRepository.save(loan);
     }
 
     @PutMapping("/{id}/return")
     public Loan returnBook(@PathVariable Integer id) {
         Loan loan = loanRepository.findById(id).orElseThrow(() -> new java.util.NoSuchElementException("Loan not found with ID: " + id));
+        
+        // Prevent double returns
+        if (loan.getStatus() == Loan.LoanStatus.RETURNED) {
+            return loan;
+        }
+        
         loan.setStatus(Loan.LoanStatus.RETURNED);
         java.time.LocalDate today = java.time.LocalDate.now();
         loan.setReturnDate(today);
+
+        // Update book availability
+        Book book = loan.getBook();
+        if (book.getAvailableCopies() < book.getTotalCopies()) {
+            book.setAvailableCopies(book.getAvailableCopies() + 1);
+            book.setStatus(Book.BookStatus.AVAILABLE);
+            bookRepository.save(book);
+        }
 
         // Calculate Fine if overdue
         if (today.isAfter(loan.getDueDate())) {

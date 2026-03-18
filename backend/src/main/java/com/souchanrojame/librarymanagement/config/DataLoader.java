@@ -72,56 +72,56 @@ public class DataLoader implements CommandLineRunner {
         bookRepository.save(Book.builder().isbn("978-0132350884").title("Clean Code")
                 .description("A handbook of agile software craftsmanship. Even bad code can function. But if code isn't clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn't have to be that way. Robert C. Martin presents a revolutionary paradigm with Clean Code.")
                 .edition("1st").price(BigDecimal.valueOf(39.99)).bookType(Book.BookType.BOTH)
-                .status(Book.BookStatus.AVAILABLE).totalCopies(5).availableCopies(4)
+                .status(Book.BookStatus.BORROWED).totalCopies(1).availableCopies(0)
                 .publisher(pubPearson).category(catCS).authors(Set.of(aMartin))
                 .coverImage("/static/covers/clean-code.jpg").build());
 
         bookRepository.save(Book.builder().isbn("978-0201633610").title("Design Patterns")
                 .description("Capturing a wealth of experience about the design of object-oriented software, four top-notch designers present a catalog of simple and succinct solutions to commonly occurring design problems. These 23 patterns allow designers to create more flexible, elegant, and ultimately reusable designs.")
                 .edition("1st").price(BigDecimal.valueOf(49.99)).bookType(Book.BookType.PHYSICAL)
-                .status(Book.BookStatus.AVAILABLE).totalCopies(3).availableCopies(3)
+                .status(Book.BookStatus.AVAILABLE).totalCopies(1).availableCopies(1)
                 .publisher(pubPearson).category(catCS).authors(Set.of(aGamma))
                 .coverImage("/static/covers/design-patterns.jpg").build());
 
         bookRepository.save(Book.builder().isbn("978-0262033848").title("Introduction to Algorithms")
                 .description("Some books on algorithms are rigorous but incomplete; others cover masses of material but lack rigor. Introduction to Algorithms uniquely combines rigor and comprehensiveness. The book covers a broad range of algorithms in depth.")
                 .edition("3rd").price(BigDecimal.valueOf(79.99)).bookType(Book.BookType.BOTH)
-                .status(Book.BookStatus.AVAILABLE).totalCopies(4).availableCopies(4)
+                .status(Book.BookStatus.AVAILABLE).totalCopies(1).availableCopies(1)
                 .publisher(pubMcGraw).category(catCS).authors(Set.of(aCormen))
                 .coverImage("/static/covers/intro-algorithms.jpg").build());
 
         bookRepository.save(Book.builder().isbn("978-0201896831").title("The Art of Computer Programming")
                 .description("The Art of Computer Programming is a comprehensive monograph written by Donald Knuth. It is the single greatest piece of work in computer science.")
                 .edition("4th").price(BigDecimal.valueOf(89.99)).bookType(Book.BookType.PHYSICAL)
-                .status(Book.BookStatus.AVAILABLE).totalCopies(2).availableCopies(2)
+                .status(Book.BookStatus.AVAILABLE).totalCopies(1).availableCopies(1)
                 .publisher(pubPearson).category(catCS).authors(Set.of(aKnuth))
                 .coverImage("/static/covers/art-programming.jpg").build());
 
         bookRepository.save(Book.builder().isbn("978-0451524935").title("1984")
                 .description("Among the seminal texts of the 20th century, Nineteen Eighty-Four is a rare work that grows more haunting as its dystopian purgatory becomes more real. Published in 1949, the book offers political satirist George Orwell's nightmarish vision of a totalitarian, bureaucratic world.")
                 .edition("Anniversary").price(BigDecimal.valueOf(12.99)).bookType(Book.BookType.BOTH)
-                .status(Book.BookStatus.AVAILABLE).totalCopies(10).availableCopies(8)
+                .status(Book.BookStatus.BORROWED).totalCopies(1).availableCopies(0)
                 .publisher(pubPenguin).category(catLit).authors(Set.of(aOrwell))
                 .coverImage("/static/covers/1984.jpg").build());
 
         bookRepository.save(Book.builder().isbn("978-0553380163").title("A Brief History of Time")
                 .description("A landmark volume in science writing by one of the great minds of our time, Stephen Hawking's book explores such profound questions as: How did the universe begin—and what made its start possible?")
                 .edition("Updated").price(BigDecimal.valueOf(18.99)).bookType(Book.BookType.DIGITAL)
-                .status(Book.BookStatus.AVAILABLE).totalCopies(6).availableCopies(6)
+                .status(Book.BookStatus.AVAILABLE).totalCopies(1).availableCopies(1)
                 .publisher(pubPenguin).category(catSci).authors(Set.of(aHawking))
                 .coverImage("/static/covers/brief-history.jpg").build());
 
         bookRepository.save(Book.builder().isbn("978-0062316110").title("Sapiens: A Brief History of Humankind")
                 .description("100,000 years ago, at least six human species inhabited the earth. Today there is just one. Us. Homo sapiens. How did our species succeed in the battle for dominance? Yuval Noah Harari explores the ways in which biology and history have defined us.")
                 .edition("1st").price(BigDecimal.valueOf(22.99)).bookType(Book.BookType.BOTH)
-                .status(Book.BookStatus.BORROWED).totalCopies(7).availableCopies(5)
+                .status(Book.BookStatus.BORROWED).totalCopies(1).availableCopies(0)
                 .publisher(pubHarper).category(catHist).authors(Set.of(aHarari))
                 .coverImage("/static/covers/sapiens.jpg").build());
 
         bookRepository.save(Book.builder().isbn("978-0134685991").title("Effective Java")
                 .description("The definitive guide to Java best practices from the acknowledged master of the craft. Updated for Java 7, 8, and 9, this book explores new design patterns and language idioms.")
                 .edition("3rd").price(BigDecimal.valueOf(44.99)).bookType(Book.BookType.BOTH)
-                .status(Book.BookStatus.AVAILABLE).totalCopies(4).availableCopies(3)
+                .status(Book.BookStatus.AVAILABLE).totalCopies(1).availableCopies(1)
                 .publisher(pubPearson).category(catCS).authors(Set.of(aBloch))
                 .coverImage("/static/covers/effective-java.jpg").build());
 
@@ -219,17 +219,69 @@ public class DataLoader implements CommandLineRunner {
         digitalAssetRepository.save(DigitalAsset.builder()
                 .book(bookRepository.findById("978-0553380163").orElse(null))
                 .fileFormat(DigitalAsset.FileFormat.PDF)
+                .contentUrl("/uploads/brief-history-of-time.pdf")
                 .fileSizeMB(BigDecimal.valueOf(12.5))
                 .accessLevel(DigitalAsset.AccessLevel.PUBLIC).build());
         digitalAssetRepository.save(DigitalAsset.builder()
                 .book(bookRepository.findById("978-0132350884").orElse(null))
                 .fileFormat(DigitalAsset.FileFormat.PDF)
+                .contentUrl("/uploads/clean-code.pdf")
                 .fileSizeMB(BigDecimal.valueOf(8.2))
                 .accessLevel(DigitalAsset.AccessLevel.PUBLIC).build());
         digitalAssetRepository.save(DigitalAsset.builder()
                 .book(bookRepository.findById("978-0553418026").orElse(null))
-                .fileFormat(DigitalAsset.FileFormat.EPUB)
+                .fileFormat(DigitalAsset.FileFormat.PDF)
+                .contentUrl("/uploads/the-martian.pdf")
                 .fileSizeMB(BigDecimal.valueOf(5.1))
+                .accessLevel(DigitalAsset.AccessLevel.PUBLIC).build());
+        digitalAssetRepository.save(DigitalAsset.builder()
+                .book(bookRepository.findById("978-0262033848").orElse(null))
+                .fileFormat(DigitalAsset.FileFormat.PDF)
+                .contentUrl("/uploads/intro-algorithms.pdf")
+                .fileSizeMB(BigDecimal.valueOf(5.1))
+                .accessLevel(DigitalAsset.AccessLevel.PUBLIC).build());
+
+        digitalAssetRepository.save(DigitalAsset.builder()
+                .book(bookRepository.findById("978-0451524935").orElse(null))
+                .fileFormat(DigitalAsset.FileFormat.PDF)
+                .contentUrl("/uploads/1984.pdf")
+                .fileSizeMB(BigDecimal.valueOf(4.5))
+                .accessLevel(DigitalAsset.AccessLevel.PUBLIC).build());
+        digitalAssetRepository.save(DigitalAsset.builder()
+                .book(bookRepository.findById("978-0062316110").orElse(null))
+                .fileFormat(DigitalAsset.FileFormat.PDF)
+                .contentUrl("/uploads/sapiens.pdf")
+                .fileSizeMB(BigDecimal.valueOf(15.2))
+                .accessLevel(DigitalAsset.AccessLevel.PUBLIC).build());
+        digitalAssetRepository.save(DigitalAsset.builder()
+                .book(bookRepository.findById("978-0134685991").orElse(null))
+                .fileFormat(DigitalAsset.FileFormat.PDF)
+                .contentUrl("/uploads/effective-java.pdf")
+                .fileSizeMB(BigDecimal.valueOf(9.8))
+                .accessLevel(DigitalAsset.AccessLevel.PUBLIC).build());
+        digitalAssetRepository.save(DigitalAsset.builder()
+                .book(bookRepository.findById("978-0596007126").orElse(null))
+                .fileFormat(DigitalAsset.FileFormat.PDF)
+                .contentUrl("/uploads/head-first-design-patterns.pdf")
+                .fileSizeMB(BigDecimal.valueOf(18.4))
+                .accessLevel(DigitalAsset.AccessLevel.PUBLIC).build());
+        digitalAssetRepository.save(DigitalAsset.builder()
+                .book(bookRepository.findById("978-0061120084").orElse(null))
+                .fileFormat(DigitalAsset.FileFormat.PDF)
+                .contentUrl("/uploads/emotional-intelligence.pdf")
+                .fileSizeMB(BigDecimal.valueOf(6.7))
+                .accessLevel(DigitalAsset.AccessLevel.PUBLIC).build());
+        digitalAssetRepository.save(DigitalAsset.builder()
+                .book(bookRepository.findById("978-0452284234").orElse(null))
+                .fileFormat(DigitalAsset.FileFormat.PDF)
+                .contentUrl("/uploads/animal-farm.pdf")
+                .fileSizeMB(BigDecimal.valueOf(3.2))
+                .accessLevel(DigitalAsset.AccessLevel.PUBLIC).build());
+        digitalAssetRepository.save(DigitalAsset.builder()
+                .book(bookRepository.findById("978-1491950357").orElse(null))
+                .fileFormat(DigitalAsset.FileFormat.PDF)
+                .contentUrl("/uploads/javascript-the-good-parts.pdf")
+                .fileSizeMB(BigDecimal.valueOf(7.1))
                 .accessLevel(DigitalAsset.AccessLevel.PUBLIC).build());
 
         System.out.println("✅ Demo data loaded: " + bookRepository.count() + " books, " + 

@@ -140,10 +140,12 @@ export default function BookViewerPage() {
                     )}
                 </div>
                 <div className="flex gap-3">
-                    <button onClick={handleBorrow}
-                        className="bg-brand-teal text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2">
-                        <BookOpen size={20} /> {t.borrowNow}
-                    </button>
+                    {book.status === 'AVAILABLE' && (
+                        <button onClick={handleBorrow}
+                            className="bg-brand-teal text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2">
+                            <BookOpen size={20} /> {t.borrowNow}
+                        </button>
+                    )}
                     {book.status === 'BORROWED' && (
                         <button onClick={handleReserve}
                             className="bg-blue-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2">
