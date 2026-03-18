@@ -1,10 +1,10 @@
 'use client';
 
-import { Mic, SendHorizontal, Bot, User, Sparkles } from 'lucide-react';
+import { SendHorizontal, Bot, User, Sparkles } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
-import { api } from '@/lib/api';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useAuth } from '@/contexts/AuthContext';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface Message {
     role: 'user' | 'assistant';
@@ -13,13 +13,12 @@ interface Message {
 
 export default function ChatbotPage() {
     const [messages, setMessages] = useState<Message[]>([
-        { role: 'assistant', content: "Hello! 👋 I'm the Library AI Assistant. I can help you with:\n\n• **Book recommendations** - Ask me to suggest books\n• **Book summaries** - Click 'Summarize' on any book page\n• **Library information** - Ask about borrowing policies, hours, etc.\n• **Reading suggestions** - Tell me what genres you like\n\nHow can I help you today?" }
+        { role: 'assistant', content: "Hello! I'm the Library AI Assistant. I can help you with:\n\n- **Book recommendations** - Ask me to suggest books\n- **Book summaries** - Click 'Summarize' on any book page\n- **Library information** - Ask about borrowing policies, hours, etc.\n- **Reading suggestions** - Tell me what genres you like\n\nHow can I help you today?" }
     ]);
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const { t } = useLanguage();
-    const { user } = useAuth();
 
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -30,14 +29,64 @@ export default function ChatbotPage() {
         
         const userMessage = input.trim();
         setInput('');
-        setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
         setLoading(true);
 
+        setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+        let assistantIndex = -1;
+        setMessages(prev => {
+            assistantIndex = prev.length;
+            return [...prev, { role: 'assistant', content: '' }];
+        });
+
         try {
-            const res = await api.ai.ask(userMessage);
-            setMessages(prev => [...prev, { role: 'assistant', content: res.response }]);
+            const response = await fetch('http://localhost:8080/api/ai/ask/stream', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: userMessage })
+            });
+
+            const reader = response.body?.getReader();
+            const decoder = new TextDecoder();
+
+            if (reader) {
+                let fullResponse = '';
+                
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    
+                    const chunk = decoder.decode(value);
+                    
+                    if (chunk.includes('[END]')) {
+                        fullResponse += chunk.replace('[END]', '');
+                        break;
+                    }
+                    if (chunk.includes('[ERROR]')) {
+                        fullResponse = chunk.replace('[ERROR]', '');
+                        break;
+                    }
+                    
+                    fullResponse += chunk;
+                    
+                    setMessages(prev => {
+                        const updated = [...prev];
+                        updated[assistantIndex] = { role: 'assistant', content: fullResponse };
+                        return updated;
+                    });
+                }
+                
+                setMessages(prev => {
+                    const updated = [...prev];
+                    updated[assistantIndex] = { role: 'assistant', content: fullResponse };
+                    return updated;
+                });
+            }
         } catch (err) {
-            setMessages(prev => [...prev, { role: 'assistant', content: 'Sorry, I encountered an error. Please try again.' }]);
+            setMessages(prev => {
+                const updated = [...prev];
+                updated[assistantIndex] = { role: 'assistant', content: 'Sorry, I encountered an error. Please try again.' };
+                return updated;
+            });
         } finally {
             setLoading(false);
         }
@@ -50,24 +99,6 @@ export default function ChatbotPage() {
         }
     };
 
-    const formatContent = (content: string) => {
-        return content.split('\n').map((line, i) => {
-            // Bold text
-            const parts = line.split(/(\*\*[^*]+\*\*)/g);
-            return (
-                <span key={i}>
-                    {parts.map((part, j) => {
-                        if (part.startsWith('**') && part.endsWith('**')) {
-                            return <strong key={j} className="font-bold">{part.slice(2, -2)}</strong>;
-                        }
-                        return <span key={j}>{part}</span>;
-                    })}
-                    {i < content.split('\n').length - 1 && <br />}
-                </span>
-            );
-        });
-    };
-
     return (
         <div className="h-[calc(100vh-180px)] flex flex-col max-w-[800px] mx-auto">
             {/* Header */}
@@ -76,8 +107,8 @@ export default function ChatbotPage() {
                     <Sparkles size={20} className="text-white" />
                 </div>
                 <div>
-                    <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">{t.aiAssistant}</h2>
-                    <p className="text-[10px] text-gray-400 font-medium uppercase tracking-widest">Powered by Library AI</p>
+                    <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">Chat Assistant</h2>
+                    <p className="text-[10px] text-gray-400 font-medium uppercase tracking-widest">AI Powered</p>
                 </div>
             </div>
 
@@ -88,27 +119,35 @@ export default function ChatbotPage() {
                         key={i}
                         className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
                     >
-                        <div className={`w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center ${
-                            msg.role === 'user' 
-                                ? 'bg-gradient-to-br from-teal-400 to-teal-600 text-white' 
-                                : 'bg-gradient-to-br from-violet-400 to-purple-600 text-white'
-                        }`}>
-                            {msg.role === 'user' ? <User size={16} /> : <Bot size={16} />}
-                        </div>
+                        {msg.role === 'assistant' && msg.content && (
+                            <div className="w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-violet-400 to-purple-600 text-white">
+                                <Bot size={16} />
+                            </div>
+                        )}
                         <div className={`max-w-[80%] p-4 rounded-2xl text-sm leading-relaxed ${
                             msg.role === 'user'
                                 ? 'bg-brand-teal text-white rounded-tr-sm'
-                                : 'bg-gray-50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 rounded-tl-sm border border-gray-100 dark:border-gray-800'
+                                : msg.content
+                                ? 'bg-gray-50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 rounded-tl-sm border border-gray-100 dark:border-gray-800'
+                                : ''
                         }`}>
-                            {formatContent(msg.content)}
+                            {msg.role === 'assistant' && msg.content ? (
+                                <div className="prose prose-sm dark:prose-invert max-w-none [&_p]:my-1 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_strong]:font-semibold [&_em]:italic">
+                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                        {msg.content}
+                                    </ReactMarkdown>
+                                </div>
+                            ) : msg.role === 'user' ? (
+                                <span className="whitespace-pre-wrap">{msg.content}</span>
+                            ) : null}
                         </div>
                     </div>
                 ))}
                 
                 {loading && (
                     <div className="flex gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-400 to-purple-600 flex items-center justify-center">
-                            <Bot size={16} className="text-white" />
+                        <div className="w-8 h-8 rounded-lg flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-violet-400 to-purple-600 text-white">
+                            <Bot size={16} />
                         </div>
                         <div className="bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-800 rounded-2xl rounded-tl-sm p-4 flex items-center gap-2">
                             <div className="flex gap-1">

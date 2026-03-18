@@ -3,11 +3,13 @@ package com.souchanrojame.librarymanagement.controller;
 import com.souchanrojame.librarymanagement.model.Book;
 import com.souchanrojame.librarymanagement.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
 import org.springframework.ai.ollama.OllamaChatModel;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import java.util.*;
 
 @RestController
@@ -67,6 +69,28 @@ public class AiController {
         }
     }
 
+    @PostMapping(value = "/ask/stream", produces = "text/plain;charset=UTF-8")
+    public Flux<String> askStream(@RequestBody Map<String, String> body) {
+        String question = body.getOrDefault("question", "");
+
+        SystemPromptTemplate systemPromptTemplate = new SystemPromptTemplate(
+                "You are a helpful library assistant. Answer questions in a friendly and informative way."
+        );
+
+        Prompt prompt = new Prompt(
+                systemPromptTemplate.createMessage(),
+                new UserMessage(question)
+        );
+
+        return chatModel.stream(prompt)
+                .map(response -> {
+                    String content = response.getResult().getOutput().getText();
+                    return content != null ? content : "";
+                })
+                .concatWith(Flux.just("[END]"))
+                .onErrorReturn("[ERROR]Sorry, I encountered an error. Please try again.");
+    }
+
     @PostMapping("/ask")
     public Map<String, String> ask(@RequestBody Map<String, String> body) {
         String question = body.getOrDefault("question", "");
@@ -86,10 +110,9 @@ public class AiController {
 
         Prompt prompt = new Prompt(
                 systemPromptTemplate.createMessage(),
-                new org.springframework.ai.chat.messages.UserMessage(userMessage)
+                new UserMessage(userMessage)
         );
 
-        ChatResponse response = chatModel.call(prompt);
-        return response.getResult().getOutput().getText();
+        return chatModel.call(prompt).getResult().getOutput().getText();
     }
 }
