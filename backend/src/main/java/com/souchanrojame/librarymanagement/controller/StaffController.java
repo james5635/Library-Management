@@ -34,9 +34,16 @@ public class StaffController {
     public Staff updateStaff(@PathVariable Integer id, @RequestBody Staff staff) {
         Staff existing = staffRepository.findById(id)
                 .orElseThrow(() -> new java.util.NoSuchElementException("Staff not found"));
-        existing.setStaffName(staff.getStaffName());
-        existing.setLoginId(staff.getLoginId());
-        existing.setEmail(staff.getEmail());
+        
+        if (staff.getStaffName() != null && !staff.getStaffName().isEmpty()) {
+            existing.setStaffName(staff.getStaffName());
+        }
+        if (staff.getLoginId() != null && !staff.getLoginId().isEmpty()) {
+            existing.setLoginId(staff.getLoginId());
+        }
+        if (staff.getEmail() != null && !staff.getEmail().isEmpty()) {
+            existing.setEmail(staff.getEmail());
+        }
         if (staff.getRole() != null) existing.setRole(staff.getRole());
         if (staff.getCanManageDigital() != null) existing.setCanManageDigital(staff.getCanManageDigital());
         if (staff.getProfileImage() != null) existing.setProfileImage(staff.getProfileImage());

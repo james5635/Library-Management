@@ -43,17 +43,21 @@ export default function ProfilePage() {
     const handleSaveProfile = async () => {
         try {
             setLoading(true);
-            console.log('Updating profile with:', {
-                staffName: name,
-                phoneNumber: phone,
-                address: address,
-            });
             const result = await api.staff.update(user.staffId, {
                 staffName: name,
                 phoneNumber: phone,
                 address: address,
             });
-            console.log('Update result:', result);
+            
+            const updatedUser = {
+                ...user,
+                staffName: result.staffName,
+                phoneNumber: result.phoneNumber,
+                address: result.address,
+            };
+            
+            localStorage.setItem('library-user', JSON.stringify(updatedUser));
+            
             setMessage('Profile updated successfully!');
             setTimeout(() => setMessage(''), 5000);
         } catch (error: any) {
