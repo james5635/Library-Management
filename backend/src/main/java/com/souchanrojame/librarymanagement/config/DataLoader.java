@@ -72,7 +72,7 @@ public class DataLoader implements CommandLineRunner {
         bookRepository.save(Book.builder().isbn("978-0132350884").title("Clean Code")
                 .description("A handbook of agile software craftsmanship. Even bad code can function. But if code isn't clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn't have to be that way. Robert C. Martin presents a revolutionary paradigm with Clean Code.")
                 .edition("1st").price(BigDecimal.valueOf(39.99)).bookType(Book.BookType.BOTH)
-                .status(Book.BookStatus.BORROWED).totalCopies(1).availableCopies(0)
+                .status(Book.BookStatus.AVAILABLE).totalCopies(1).availableCopies(1)
                 .publisher(pubPearson).category(catCS).authors(Set.of(aMartin))
                 .coverImage("/static/covers/clean-code.jpg").build());
 
@@ -100,7 +100,7 @@ public class DataLoader implements CommandLineRunner {
         bookRepository.save(Book.builder().isbn("978-0451524935").title("1984")
                 .description("Among the seminal texts of the 20th century, Nineteen Eighty-Four is a rare work that grows more haunting as its dystopian purgatory becomes more real. Published in 1949, the book offers political satirist George Orwell's nightmarish vision of a totalitarian, bureaucratic world.")
                 .edition("Anniversary").price(BigDecimal.valueOf(12.99)).bookType(Book.BookType.BOTH)
-                .status(Book.BookStatus.BORROWED).totalCopies(1).availableCopies(0)
+                .status(Book.BookStatus.AVAILABLE).totalCopies(1).availableCopies(0)
                 .publisher(pubPenguin).category(catLit).authors(Set.of(aOrwell))
                 .coverImage("/static/covers/1984.jpg").build());
 

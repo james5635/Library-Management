@@ -161,10 +161,16 @@ export const api = {
     },
     reservations: {
         getAll: () => fetch(`${API_BASE_URL}/reservations`).then(handleResponse),
+        getActive: () => fetch(`${API_BASE_URL}/reservations/active`).then(handleResponse),
         create: (isbn: string, email: string) => fetch(`${API_BASE_URL}/reservations`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ isbn, email })
+        }).then(handleResponse),
+        accept: (id: number, data: { staffId: number }) => fetch(`${API_BASE_URL}/reservations/${id}/accept`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
         }).then(handleResponse),
         cancel: (id: number) => fetch(`${API_BASE_URL}/reservations/${id}/cancel`, {
             method: 'PUT'

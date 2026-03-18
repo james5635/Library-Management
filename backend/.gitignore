@@ -35,3 +35,18 @@ out/
 
 ### VS Code ###
 .vscode/
+
+uploads/*
+
+!uploads/1984.pdf
+!uploads/animal-farm.pdf
+!uploads/brief-history-of-time.pdf
+!uploads/ce090487-db62-4862-8ab7-7c7a643e212e.pdf
+!uploads/clean-code.pdf
+!uploads/effective-java.pdf
+!uploads/emotional-intelligence.pdf
+!uploads/head-first-design-patterns.pdf
+!uploads/intro-algorithms.pdf
+!uploads/javascript-the-good-parts.pdf
+!uploads/sapians.pdf
+!uploads/the-martian.pdf

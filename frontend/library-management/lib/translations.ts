@@ -55,11 +55,16 @@ export interface Translations {
     // Book Detail
     borrowNow: string;
     reserveBook: string;
+    borrowDigital: string;
+    reservePhysical: string;
     summarize: string;
     like: string;
     comments: string;
     addComment: string;
     writeComment: string;
+    physicalOnly: string;
+    digitalOnly: string;
+    reserved: string;
 
     // Settings
     fontSize: string;
@@ -101,8 +106,11 @@ export const translations: Record<Language, Translations> = {
         available: 'Available', borrowed: 'Borrowed', reserved: 'Reserved', lost: 'Lost',
         signIn: 'Sign In', signUp: 'Sign Up', forgotPassword: 'Forgot password?',
         noAccount: 'No account? Register', hasAccount: 'Already have an account? Sign In',
-        borrowNow: 'Borrow Now', reserveBook: 'Reserve', summarize: 'AI Summary',
+        borrowNow: 'Borrow Now', reserveBook: 'Reserve', borrowDigital: 'Borrow (Digital)', reservePhysical: 'Reserve (Physical)',
+        summarize: 'AI Summary',
         like: 'Like', comments: 'Comments', addComment: 'Add Comment', writeComment: 'Write a comment...',
+        physicalOnly: 'Physical Book Only', digitalOnly: 'Digital Book Available',
+        reserved: 'Reservations',
         fontSize: 'Font Size', language: 'Language', small: 'Small', medium: 'Medium', large: 'Large',
         settingsSaved: 'Settings saved!',
         discoverTitle: 'Discover Your Next Great Adventure',
@@ -125,8 +133,10 @@ export const translations: Record<Language, Translations> = {
         available: 'មាន', borrowed: 'បានខ្ចី', reserved: 'បានកក់ទុក', lost: 'បាត់បង់',
         signIn: 'ចូល', signUp: 'ចុះឈ្មោះ', forgotPassword: 'ភ្លេចពាក្យសម្ងាត់?',
         noAccount: 'មិនមានគណនី? ចុះឈ្មោះ', hasAccount: 'មានគណនីរួចហើយ? ចូល',
-        borrowNow: 'ខ្ចីឥឡូវ', reserveBook: 'កក់ទុក', summarize: 'សង្ខេប AI',
+        borrowNow: 'ខ្ចីឥឡូវ', reserveBook: 'កក់ទុក', borrowDigital: 'ខ្ចី (ឌីជីថល)', reservePhysical: 'កក់ (រូបិយ)', summarize: 'សង្ខេប AI',
         like: 'ចូលចិត្ត', comments: 'មតិយោបល់', addComment: 'បន្ថែមមតិ', writeComment: 'សរសេរមតិ...',
+        physicalOnly: 'សៀវភៅរូបិយប៉ុណ្ណោះ', digitalOnly: 'មានជាសៀវភៅឌីជីថល',
+        reserved: 'ការកក់',
         fontSize: 'ទំហំអក្សរ', language: 'ភាសា', small: 'តូច', medium: 'មធ្យម', large: 'ធំ',
         settingsSaved: 'បានរក្សាទុកការកំណត់!',
         discoverTitle: 'រកឃើញការផ្សងព្រេងដ៏អស្ចារ្យបន្ទាប់របស់អ្នក',
@@ -149,8 +159,10 @@ export const translations: Record<Language, Translations> = {
         available: '利用可能', borrowed: '貸出中', reserved: '予約済み', lost: '紛失',
         signIn: 'サインイン', signUp: 'サインアップ', forgotPassword: 'パスワードを忘れた？',
         noAccount: 'アカウントがない？登録', hasAccount: 'アカウントをお持ちですか？サインイン',
-        borrowNow: '今すぐ借りる', reserveBook: '予約する', summarize: 'AI要約',
+        borrowNow: '今すぐ借りる', reserveBook: '予約する', borrowDigital: '今すぐ借り入れる (デジタル)', reservePhysical: '予約する (物理)', summarize: 'AI要約',
         like: 'いいね', comments: 'コメント', addComment: 'コメントを追加', writeComment: 'コメントを書く...',
+        physicalOnly: '紙の本のみ', digitalOnly: '電子書籍利用可',
+        reserved: '予約',
         fontSize: 'フォントサイズ', language: '言語', small: '小', medium: '中', large: '大',
         settingsSaved: '設定を保存しました！',
         discoverTitle: '次の素晴らしい冒険を発見',
@@ -173,8 +185,10 @@ export const translations: Record<Language, Translations> = {
         available: '可借', borrowed: '已借出', reserved: '已预约', lost: '遗失',
         signIn: '登录', signUp: '注册', forgotPassword: '忘记密码？',
         noAccount: '没有账号？注册', hasAccount: '已有账号？登录',
-        borrowNow: '立即借阅', reserveBook: '预约', summarize: 'AI摘要',
+        borrowNow: '立即借阅', reserveBook: '预约', borrowDigital: '借阅 (电子)', reservePhysical: '预约 (实体)', summarize: 'AI摘要',
         like: '点赞', comments: '评论', addComment: '添加评论', writeComment: '写评论...',
+        physicalOnly: '仅实体书', digitalOnly: '电子书可借',
+        reserved: '预约',
         fontSize: '字体大小', language: '语言', small: '小', medium: '中', large: '大',
         settingsSaved: '设置已保存！',
         discoverTitle: '发现你的下一个精彩冒险',
@@ -197,8 +211,10 @@ export const translations: Record<Language, Translations> = {
         available: '대출 가능', borrowed: '대출 중', reserved: '예약됨', lost: '분실',
         signIn: '로그인', signUp: '가입', forgotPassword: '비밀번호를 잊으셨나요?',
         noAccount: '계정이 없나요? 가입', hasAccount: '이미 계정이 있나요? 로그인',
-        borrowNow: '지금 대출', reserveBook: '예약', summarize: 'AI 요약',
+        borrowNow: '지금 대출', reserveBook: '예약', borrowDigital: '대출 (디지털)', reservePhysical: '예약 (실물)', summarize: 'AI 요약',
         like: '좋아요', comments: '댓글', addComment: '댓글 추가', writeComment: '댓글을 작성하세요...',
+        physicalOnly: '실물 도서만', digitalOnly: '전자 도서 가능',
+        reserved: '예약',
         fontSize: '글꼴 크기', language: '언어', small: '작게', medium: '보통', large: '크게',
         settingsSaved: '설정이 저장되었습니다!',
         discoverTitle: '다음 위대한 모험을 발견하세요',

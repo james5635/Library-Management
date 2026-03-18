@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { BookOpen, FileText, Users, Banknote, BarChart, ShieldCheck, BookMarked } from 'lucide-react';
+import { BookOpen, FileText, Users, Banknote, BarChart, ShieldCheck, BookMarked, CalendarClock } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function LibrarianPage() {
@@ -12,6 +12,7 @@ export default function LibrarianPage() {
         { icon: Users, href: '/management/members', label: t.member, desc: 'Manage library members', color: 'from-blue-400 to-blue-600', shadow: 'shadow-blue-500/20' },
         { icon: ShieldCheck, href: '/management/staff', label: t.staff, desc: 'Manage staff & roles', color: 'from-violet-400 to-violet-600', shadow: 'shadow-violet-500/20' },
         { icon: BookMarked, href: '/management/loans', label: t.loan, desc: 'Track active loans', color: 'from-orange-400 to-orange-600', shadow: 'shadow-orange-500/20' },
+        { icon: CalendarClock, href: '/management/reservations', label: t.reserved, desc: 'Accept reservations', color: 'from-sky-400 to-sky-600', shadow: 'shadow-sky-500/20' },
         { icon: Banknote, href: '/management/fines', label: t.fine, desc: 'Manage overdue fines', color: 'from-red-400 to-red-600', shadow: 'shadow-red-500/20' },
         { icon: BarChart, href: '/management/reports', label: t.report, desc: 'View analytics & reports', color: 'from-emerald-400 to-emerald-600', shadow: 'shadow-emerald-500/20' }
     ];

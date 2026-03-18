@@ -140,17 +140,23 @@ export default function BookViewerPage() {
                     )}
                 </div>
                 <div className="flex gap-3">
-                    {book.status === 'AVAILABLE' && (
+                    {book.status === 'AVAILABLE' && book.bookType !== 'PHYSICAL' && (
                         <button onClick={handleBorrow}
                             className="bg-brand-teal text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2">
-                            <BookOpen size={20} /> {t.borrowNow}
+                            <BookOpen size={20} /> {book.bookType === 'BOTH' ? t.borrowDigital : t.borrowNow}
                         </button>
                     )}
-                    {book.status === 'BORROWED' && (
+                    {book.bookType !== 'DIGITAL' && book.status === 'AVAILABLE' && (
                         <button onClick={handleReserve}
                             className="bg-blue-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2">
-                            <CalendarClock size={20} /> {t.reserveBook}
+                            <CalendarClock size={20} /> {book.bookType === 'BOTH' ? t.reservePhysical : t.reserveBook}
                         </button>
+                    )}
+                    {book.status === 'RESERVED' && (
+                        <span className="text-sm text-blue-500 font-semibold">You have reserved this book</span>
+                    )}
+                    {book.status === 'BORROWED' && (
+                        <span className="text-sm text-orange-500 font-semibold">Currently borrowed</span>
                     )}
                 </div>
                 <button onClick={handleSummarize}
