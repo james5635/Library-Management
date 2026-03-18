@@ -141,9 +141,7 @@ function TopbarContent({ onToggleSidebar, onToggleTheme, isDark }: TopbarProps) 
                         className="flex items-center gap-3 px-3 py-1.5 border border-gray-100 dark:border-gray-800 rounded-xl cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
                     >
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold text-xs overflow-hidden relative border border-teal-200 dark:border-teal-800">
-                            {user?.profileImage ? (
-                                <Image src={`${STORAGE_BASE_URL}${user.profileImage}`} alt="Profile" fill className="object-cover" />
-                            ) : (
+                            {(
                                 user?.staffName?.[0] || '?'
                             )}
                         </div>
@@ -160,9 +158,8 @@ function TopbarContent({ onToggleSidebar, onToggleTheme, isDark }: TopbarProps) 
                         <div className="absolute right-0 mt-2 w-[260px] bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-[24px] shadow-2xl z-50 p-6 animate-in slide-in-from-top-2 duration-300">
                             <div className="flex flex-col items-center gap-3 border-b border-gray-50 dark:border-gray-800 pb-4 mb-4">
                                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold text-xl overflow-hidden relative shadow-inner border-2 border-white dark:border-gray-800">
-                                    {user.profileImage ? (
-                                        <Image src={`${STORAGE_BASE_URL}${user.profileImage}`} alt="Profile" fill className="object-cover" />
-                                    ) : (
+                                    {
+                                    (
                                         user.staffName?.[0] || '?'
                                     )}
                                 </div>
