@@ -64,7 +64,7 @@ export interface Translations {
     writeComment: string;
     physicalOnly: string;
     digitalOnly: string;
-    reserved: string;
+    reservations: string;
 
     // Settings
     fontSize: string;
@@ -110,7 +110,7 @@ export const translations: Record<Language, Translations> = {
         summarize: 'AI Summary',
         like: 'Like', comments: 'Comments', addComment: 'Add Comment', writeComment: 'Write a comment...',
         physicalOnly: 'Physical Book Only', digitalOnly: 'Digital Book Available',
-        reserved: 'Reservations',
+        reservations: 'Reservations',
         fontSize: 'Font Size', language: 'Language', small: 'Small', medium: 'Medium', large: 'Large',
         settingsSaved: 'Settings saved!',
         discoverTitle: 'Discover Your Next Great Adventure',
@@ -136,7 +136,7 @@ export const translations: Record<Language, Translations> = {
         borrowNow: 'ខ្ចីឥឡូវ', reserveBook: 'កក់ទុក', borrowDigital: 'ខ្ចី (ឌីជីថល)', reservePhysical: 'កក់ (រូបិយ)', summarize: 'សង្ខេប AI',
         like: 'ចូលចិត្ត', comments: 'មតិយោបល់', addComment: 'បន្ថែមមតិ', writeComment: 'សរសេរមតិ...',
         physicalOnly: 'សៀវភៅរូបិយប៉ុណ្ណោះ', digitalOnly: 'មានជាសៀវភៅឌីជីថល',
-        reserved: 'ការកក់',
+        reservations: 'ការកក់',
         fontSize: 'ទំហំអក្សរ', language: 'ភាសា', small: 'តូច', medium: 'មធ្យម', large: 'ធំ',
         settingsSaved: 'បានរក្សាទុកការកំណត់!',
         discoverTitle: 'រកឃើញការផ្សងព្រេងដ៏អស្ចារ្យបន្ទាប់របស់អ្នក',
@@ -162,7 +162,7 @@ export const translations: Record<Language, Translations> = {
         borrowNow: '今すぐ借りる', reserveBook: '予約する', borrowDigital: '今すぐ借り入れる (デジタル)', reservePhysical: '予約する (物理)', summarize: 'AI要約',
         like: 'いいね', comments: 'コメント', addComment: 'コメントを追加', writeComment: 'コメントを書く...',
         physicalOnly: '紙の本のみ', digitalOnly: '電子書籍利用可',
-        reserved: '予約',
+        reservations: '予約',
         fontSize: 'フォントサイズ', language: '言語', small: '小', medium: '中', large: '大',
         settingsSaved: '設定を保存しました！',
         discoverTitle: '次の素晴らしい冒険を発見',
@@ -188,7 +188,7 @@ export const translations: Record<Language, Translations> = {
         borrowNow: '立即借阅', reserveBook: '预约', borrowDigital: '借阅 (电子)', reservePhysical: '预约 (实体)', summarize: 'AI摘要',
         like: '点赞', comments: '评论', addComment: '添加评论', writeComment: '写评论...',
         physicalOnly: '仅实体书', digitalOnly: '电子书可借',
-        reserved: '预约',
+        reservations: '预约',
         fontSize: '字体大小', language: '语言', small: '小', medium: '中', large: '大',
         settingsSaved: '设置已保存！',
         discoverTitle: '发现你的下一个精彩冒险',
@@ -214,7 +214,7 @@ export const translations: Record<Language, Translations> = {
         borrowNow: '지금 대출', reserveBook: '예약', borrowDigital: '대출 (디지털)', reservePhysical: '예약 (실물)', summarize: 'AI 요약',
         like: '좋아요', comments: '댓글', addComment: '댓글 추가', writeComment: '댓글을 작성하세요...',
         physicalOnly: '실물 도서만', digitalOnly: '전자 도서 가능',
-        reserved: '예약',
+        reservations: '예약',
         fontSize: '글꼴 크기', language: '언어', small: '작게', medium: '보통', large: '크게',
         settingsSaved: '설정이 저장되었습니다!',
         discoverTitle: '다음 위대한 모험을 발견하세요',

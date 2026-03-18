@@ -41,10 +41,13 @@ export default function ReservationManagementPage() {
         if (!user) return;
         setBusyId(reservationId);
         try {
-            await api.reservations.accept(reservationId, { staffId: user.staffId });
+            console.log('Accepting reservation:', reservationId, 'with staffId:', user.staffId);
+            const result = await api.reservations.accept(reservationId, { staffId: user.staffId });
+            console.log('Accept result:', result);
             await fetchReservations();
-        } catch (e) {
-            alert('Failed to accept reservation.');
+        } catch (e: any) {
+            console.error('Accept error:', e);
+            alert('Failed to accept reservation: ' + (e.message || 'Unknown error'));
         } finally {
             setBusyId(null);
         }

@@ -42,7 +42,7 @@ public class AiController {
         String format = book.getBookType() != null ? book.getBookType().toString() : "N/A";
 
         String bookInfo = String.format(
-                "**Book:** %s\n**Author(s):** %s\n**Category:** %s\n**Format:** %s\n\n**Overview:**\n%s\n\n**Key Highlights:**\n- Categorized under %s\n- Available in %s format\n- Edition: %s\n- Price: %s",
+                "**Book:** %s\n\n**Author(s):** %s\n\n**Category:** %s\n\n**Format:** %s\n\n**Overview:**\n\n%s\n\n**Key Highlights:**\n\n- Categorized under %s\n- Available in %s format\n- Edition: %s\n- Price: %s",
                 title,
                 authors.isEmpty() ? "Unknown Author" : authors,
                 category,
@@ -61,7 +61,7 @@ public class AiController {
 
         try {
             String aiSummary = callOllama(userMessage);
-            return Map.of("summary", bookInfo + "\n\n---\n\n**AI Summary:**\n" + aiSummary);
+            return Map.of("summary", bookInfo + "\n\n---\n\n**AI Summary:**\n\n" + aiSummary);
         } catch (Exception e) {
             return Map.of("summary", bookInfo + "\n\n_(Note: AI service unavailable.)_");
         }

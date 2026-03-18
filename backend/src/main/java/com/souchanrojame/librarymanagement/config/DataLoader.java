@@ -170,7 +170,7 @@ public class DataLoader implements CommandLineRunner {
         bookRepository.save(Book.builder().isbn("978-1491950357").title("JavaScript: The Good Parts")
                 .description("Most programming languages contain good and bad parts, but JavaScript has more than its share of the bad, having been developed and released in a hurry before it could be refined.")
                 .edition("1st").price(BigDecimal.valueOf(29.99)).bookType(Book.BookType.DIGITAL)
-                .status(Book.BookStatus.AVAILABLE).totalCopies(6).availableCopies(6)
+                .status(Book.BookStatus.AVAILABLE).totalCopies(6).availableCopies(1)
                 .publisher(pubOReilly).category(catCS).authors(Set.of(aDrake))
                 .coverImage("/static/covers/js-good-parts.jpg").build());
 

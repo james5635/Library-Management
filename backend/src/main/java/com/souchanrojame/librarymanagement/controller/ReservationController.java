@@ -77,13 +77,25 @@ public class ReservationController {
 
     @PutMapping("/{id}/accept")
     @org.springframework.transaction.annotation.Transactional
-    public Loan accept(@PathVariable Integer id, @RequestBody Map<String, Integer> body) {
+    public Loan accept(@PathVariable Integer id, @RequestBody Map<String, Object> body) {
+        System.out.println("Accept reservation called: id=" + id + ", body=" + body);
+        
         Reservation reservation = reservationRepository.findById(id)
-                .orElseThrow(() -> new java.util.NoSuchElementException("Reservation not found"));
+                .orElseThrow(() -> new java.util.NoSuchElementException("Reservation not found with id: " + id));
 
-        Integer staffId = body.get("staffId");
+        Object staffIdObj = body.get("staffId");
+        Integer staffId;
+        if (staffIdObj instanceof Integer) {
+            staffId = (Integer) staffIdObj;
+        } else if (staffIdObj instanceof Number) {
+            staffId = ((Number) staffIdObj).intValue();
+        } else {
+            throw new IllegalArgumentException("Invalid staffId: " + staffIdObj);
+        }
+        
+        System.out.println("Looking for staff with id: " + staffId);
         Staff staff = staffRepository.findById(staffId)
-                .orElseThrow(() -> new java.util.NoSuchElementException("Staff not found"));
+                .orElseThrow(() -> new java.util.NoSuchElementException("Staff not found with id: " + staffId));
 
         Book book = reservation.getBook();
         Reader reader = reservation.getReader();
@@ -97,18 +109,9 @@ public class ReservationController {
                 .status(Loan.LoanStatus.BORROWED)
                 .build();
 
-        // Update book availability
-        if (book.getAvailableCopies() > 0) {
-            book.setAvailableCopies(book.getAvailableCopies() - 1);
-            if (book.getAvailableCopies() == 0) {
-                book.setStatus(Book.BookStatus.BORROWED);
-            } else {
-                book.setStatus(Book.BookStatus.AVAILABLE);
-            }
-            bookRepository.save(book);
-        } else {
-            throw new RuntimeException("No copies available for borrowing.");
-        }
+        // Update book status - mark as BORROWED
+        book.setStatus(Book.BookStatus.BORROWED);
+        bookRepository.save(book);
 
         // Mark reservation as fulfilled
         reservation.setStatus(Reservation.ReservationStatus.FULFILLED);

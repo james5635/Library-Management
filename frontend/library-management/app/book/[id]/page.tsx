@@ -7,6 +7,8 @@ import { api, STORAGE_BASE_URL } from '@/lib/api';
 import { Heart, Lock, BookOpen, ThumbsUp, MessageCircle, Send, Sparkles, CalendarClock } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export default function BookViewerPage() {
     const params = useParams();
@@ -164,8 +166,19 @@ export default function BookViewerPage() {
                     <Sparkles size={16} /> {t.summarize}
                 </button>
                 {showSummary && (
-                    <div className="max-w-xl bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800 rounded-2xl p-6 text-left text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
-                        {loadingSummary ? 'Generating summary...' : summary}
+                    <div className="max-w-xl bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800 rounded-2xl p-6 text-left text-sm text-gray-700 dark:text-gray-300">
+                        {loadingSummary ? (
+                            <div className="flex items-center gap-2 text-purple-500">
+                                <div className="w-4 h-4 border-2 border-purple-400 border-t-transparent rounded-full animate-spin" />
+                                Generating AI summary...
+                            </div>
+                        ) : (
+                            <div className="prose prose-sm dark:prose-invert max-w-none [&_h1]:text-xl [&_h2]:text-lg [&_h3]:text-base [&_h1]:font-bold [&_h2]:font-bold [&_h3]:font-semibold [&_p]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_strong]:font-semibold [&_em]:italic">
+                                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                    {summary}
+                                </ReactMarkdown>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
@@ -207,13 +220,19 @@ export default function BookViewerPage() {
 
             {/* AI Summary */}
             {showSummary && (
-                <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800 rounded-2xl p-6 text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
+                <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-100 dark:border-purple-800 rounded-2xl p-6 text-sm text-gray-700 dark:text-gray-300">
                     {loadingSummary ? (
                         <div className="flex items-center gap-2 text-purple-500">
                             <div className="w-4 h-4 border-2 border-purple-400 border-t-transparent rounded-full animate-spin" />
                             Generating AI summary...
                         </div>
-                    ) : summary}
+                    ) : (
+                        <div className="prose prose-sm dark:prose-invert max-w-none [&_h1]:text-xl [&_h2]:text-lg [&_h3]:text-base [&_h1]:font-bold [&_h2]:font-bold [&_h3]:font-semibold [&_p]:my-2 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_strong]:font-semibold [&_em]:italic">
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                {summary}
+                            </ReactMarkdown>
+                        </div>
+                    )}
                 </div>
             )}
 
