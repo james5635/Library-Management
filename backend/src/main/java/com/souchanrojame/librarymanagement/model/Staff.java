@@ -30,6 +30,11 @@ public class Staff {
     
     private Boolean canManageDigital;
 
+    private String profileImage;
+    private String phoneNumber;
+    private String address;
+    private java.time.LocalDate joinDate;
+
     public enum StaffRole {
         ADMIN, LIBRARIAN, BORROWER
     }

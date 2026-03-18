@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
         port: '8080',
         pathname: '/static/covers/**',
       },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '8080',
+        pathname: '/static/profile/**',
+      },
     ],
   },
 };

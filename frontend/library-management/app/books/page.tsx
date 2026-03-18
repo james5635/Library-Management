@@ -2,8 +2,9 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { api } from '@/lib/api';
+import { api, STORAGE_BASE_URL } from '@/lib/api';
 import Link from 'next/link';
+import Image from 'next/image';
 import { BookOpen, Search } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -79,8 +80,12 @@ function BooksContent() {
                     {books.map((book: any) => (
                         <Link key={book.isbn} href={`/book/${book.isbn}`}
                             className="group bg-white dark:bg-gray-900 rounded-[24px] border border-gray-100 dark:border-gray-800 p-5 hover:shadow-xl hover:scale-[1.02] transition-all duration-300">
-                            <div className="w-full aspect-[3/4] rounded-xl bg-gradient-to-br from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-700 flex items-center justify-center mb-4 overflow-hidden">
-                                <BookOpen size={32} className="text-gray-300 dark:text-gray-600 group-hover:text-brand-teal transition-colors" />
+                            <div className="w-full aspect-[3/4] rounded-xl bg-gradient-to-br from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-700 flex items-center justify-center mb-4 overflow-hidden relative">
+                                {book.coverImage ? (
+                                    <Image src={`${STORAGE_BASE_URL}${book.coverImage}`} alt={book.title} fill className="object-cover" />
+                                ) : (
+                                    <BookOpen size={32} className="text-gray-300 dark:text-gray-600 group-hover:text-brand-teal transition-colors" />
+                                )}
                             </div>
                             <div className="flex flex-col gap-1.5">
                                 <div className="flex items-center justify-between">

@@ -30,6 +30,10 @@ public class AuthController {
                 response.put("email", staff.getEmail());
                 response.put("role", staff.getRole().name());
                 response.put("canManageDigital", staff.getCanManageDigital());
+                response.put("profileImage", staff.getProfileImage());
+                response.put("phoneNumber", staff.getPhoneNumber());
+                response.put("address", staff.getAddress());
+                response.put("joinDate", staff.getJoinDate() != null ? staff.getJoinDate().toString() : null);
                 return ResponseEntity.ok(response);
             })
             .orElse(ResponseEntity.status(401).body(Map.of("error", "Invalid credentials")));
@@ -64,6 +68,8 @@ public class AuthController {
                 .email(email)
                 .role(role)
                 .canManageDigital(false)
+                .joinDate(java.time.LocalDate.now())
+                .profileImage("/static/UI/login.png")
                 .build();
 
         staffRepository.save(staff);
@@ -74,6 +80,8 @@ public class AuthController {
         response.put("loginId", staff.getLoginId());
         response.put("email", staff.getEmail());
         response.put("role", staff.getRole().name());
+        response.put("profileImage", staff.getProfileImage());
+        response.put("joinDate", staff.getJoinDate().toString());
         return ResponseEntity.ok(response);
     }
 }

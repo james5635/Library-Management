@@ -16,20 +16,31 @@ public class FileController {
     private final String uploadDir = "uploads";
 
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
+    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam(value = "type", defaultValue = "pdf") String type) {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("File is empty");
         }
 
         try {
-            Path path = Paths.get(uploadDir);
+            String dir = uploadDir;
+            String urlPrefix = "/uploads/";
+            
+            if ("cover".equals(type)) {
+                dir = "static/covers";
+                urlPrefix = "/static/covers/";
+            } else if ("profile".equals(type)) {
+                dir = "static/profile";
+                urlPrefix = "/static/profile/";
+            }
+
+            Path path = Paths.get(dir);
             if (!Files.exists(path)) {
                 Files.createDirectories(path);
             }
 
             String originalFileName = file.getOriginalFilename();
             String extension = "";
-            if (originalFileName != null && originalFileName.contains(".")) {
+            if (originalFileName != null && originalFileName.lastIndexOf(".") > 0) {
                 extension = originalFileName.substring(originalFileName.lastIndexOf("."));
             }
             
@@ -37,8 +48,7 @@ public class FileController {
             Path targetPath = path.resolve(fileName);
             Files.copy(file.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
 
-            String fileUrl = "/uploads/" + fileName;
-            return ResponseEntity.ok(Map.of("url", fileUrl));
+            return ResponseEntity.ok(Map.of("url", urlPrefix + fileName));
 
         } catch (IOException e) {
             return ResponseEntity.internalServerError().body("Could not upload file: " + e.getMessage());

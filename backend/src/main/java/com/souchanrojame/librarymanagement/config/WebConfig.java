@@ -13,10 +13,10 @@ public class WebConfig implements WebMvcConfigurer {
         Path uploadDir = Paths.get("uploads");
         String uploadPath = uploadDir.toFile().getAbsolutePath();
         
-        registry.addResourceHandler("/uploads/**")
-                .addResourceLocations("file:" + uploadPath + "/");
+        Path staticDir = Paths.get("static");
+        String staticPath = staticDir.toFile().getAbsolutePath();
         
-        registry.addResourceHandler("/static/covers/**")
-                .addResourceLocations("file:static/covers/");
+        registry.addResourceHandler("/uploads/**").addResourceLocations("file:" + uploadPath + "/");
+        registry.addResourceHandler("/static/**").addResourceLocations("file:" + staticPath + "/");
     }
 }

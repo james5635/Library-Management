@@ -64,7 +64,8 @@ export const api = {
         returnBook: (id: number) => fetch(`${API_BASE_URL}/loans/${id}/return`, {
             method: 'PUT'
         }).then(handleResponse),
-        checkActive: (email: string, isbn: string) => fetch(`${API_BASE_URL}/loans/check?email=${email}&isbn=${isbn}`).then(handleResponse)
+        checkActive: (email: string, isbn: string) => fetch(`${API_BASE_URL}/loans/check?email=${email}&isbn=${isbn}`).then(handleResponse),
+        getByUser: (email: string) => fetch(`${API_BASE_URL}/loans/user/${email}`).then(handleResponse)
     },
     bookmarks: {
         getAll: (email: string) => fetch(`${API_BASE_URL}/bookmarks/user/${email}`).then(handleResponse),
@@ -149,6 +150,7 @@ export const api = {
             const q = email ? `?email=${email}` : '';
             return fetch(`${API_BASE_URL}/books/${isbn}/likes${q}`).then(handleResponse);
         },
+        getLikedBooks: (email: string) => fetch(`${API_BASE_URL}/books/user/${email}/likes`).then(handleResponse),
         getComments: (isbn: string) => fetch(`${API_BASE_URL}/books/${isbn}/comments`).then(handleResponse),
         addComment: (isbn: string, data: { email: string; name: string; content: string }) =>
             fetch(`${API_BASE_URL}/books/${isbn}/comments`, {

@@ -144,10 +144,12 @@ export default function BookViewerPage() {
                         className="bg-brand-teal text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2">
                         <BookOpen size={20} /> {t.borrowNow}
                     </button>
-                    <button onClick={handleReserve}
-                        className="bg-blue-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2">
-                        <CalendarClock size={20} /> {t.reserveBook}
-                    </button>
+                    {book.status === 'BORROWED' && (
+                        <button onClick={handleReserve}
+                            className="bg-blue-500 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:opacity-90 transition-opacity flex items-center gap-2">
+                            <CalendarClock size={20} /> {t.reserveBook}
+                        </button>
+                    )}
                 </div>
                 <button onClick={handleSummarize}
                     className="text-purple-500 font-semibold text-sm flex items-center gap-1 hover:underline">
@@ -207,14 +209,21 @@ export default function BookViewerPage() {
                 </div>
             )}
 
-            {/* Reader */}
-            {isPdf ? (
-                <div className="w-full h-[80vh] bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden">
+            {/* Reader - Only show if not PHYSICAL and has content URL */}
+            {book?.bookType !== 'PHYSICAL' && isPdf && fullContentUrl && (
+                <div className="w-full h-[80vh] bg-white dark:bg-gray-900 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-800 overflow-hidden mt-8">
                     <iframe src={fullContentUrl || ''} className="w-full h-full border-none" title="PDF Viewer" />
                 </div>
-            ) : (
-                <div className="flex justify-center gap-8">
-                    <div className="flex-1 max-w-[500px] aspect-[1/1.4] bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-100 dark:border-gray-800 p-8 flex flex-col gap-6">
+            )}
+            
+            {(book?.bookType === 'PHYSICAL' || !isPdf) && (
+                <div className="flex justify-center gap-8 mt-8">
+                    <div className="flex-1 max-w-[500px] aspect-[1/1.4] bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-100 dark:border-gray-800 p-8 flex flex-col gap-6 relative">
+                        {book?.bookType === 'PHYSICAL' && (
+                            <div className="absolute top-4 right-4 bg-gray-100 dark:bg-gray-800 text-gray-500 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+                                Physical Book Only
+                            </div>
+                        )}
                         <div className="text-[10px] text-gray-400 font-medium">{book?.title || 'Untitled'}</div>
                         <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">{book?.title || 'Document'}</h2>
                         {fullCoverUrl && (
@@ -225,6 +234,11 @@ export default function BookViewerPage() {
                         <div className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed font-serif">
                             {book?.description || "No description available for this book."}
                         </div>
+                        {book?.bookType === 'PHYSICAL' && (
+                            <div className="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-500 text-xs rounded-xl text-center border border-yellow-100 dark:border-yellow-800">
+                                This book is only available physically. Please visit the library to borrow it.
+                            </div>
+                        )}
                         <div className="mt-auto text-center text-[10px] text-gray-400">- 1 -</div>
                     </div>
                 </div>

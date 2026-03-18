@@ -14,8 +14,8 @@ interface BookCardProps {
 
 export default function BookCard({ isbn, title, author, coverImage, showButtons = false }: BookCardProps) {
     const getFullUrl = (path: string) => {
-        if (!path) return "/static/UI/2.png";
-        if (path.startsWith('http') || path.startsWith('data:') || path.startsWith('/static')) return path;
+        if (!path) return "https://via.placeholder.com/300x400?text=No+Cover";
+        if (path.startsWith('http') || path.startsWith('data:')) return path;
         return `${STORAGE_BASE_URL}${path}`;
     };
 

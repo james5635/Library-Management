@@ -43,6 +43,11 @@ public class BookInteractionController {
         return Map.of("count", count, "liked", liked);
     }
 
+    @GetMapping("/user/{email}/likes")
+    public List<com.souchanrojame.librarymanagement.model.Book> getUserLikedBooks(@PathVariable String email) {
+        return bookLikeRepository.findBooksByReaderEmail(email);
+    }
+
     // --- Comments ---
     @PostMapping("/{isbn}/comments")
     public BookComment addComment(@PathVariable String isbn, @RequestBody Map<String, String> body) {

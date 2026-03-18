@@ -85,4 +85,9 @@ public class LoanController {
         Optional<Loan> loan = loanRepository.findByReaderEmailAndBookIsbnAndStatus(email, isbn, Loan.LoanStatus.BORROWED);
         return Map.of("hasActiveLoan", loan.isPresent());
     }
+
+    @GetMapping("/user/{email}")
+    public List<Loan> getReaderLoans(@PathVariable String email) {
+        return loanRepository.findByReaderEmailOrderByIssueDateDesc(email);
+    }
 }

@@ -37,8 +37,12 @@ public class StaffController {
         existing.setStaffName(staff.getStaffName());
         existing.setLoginId(staff.getLoginId());
         existing.setEmail(staff.getEmail());
-        existing.setRole(staff.getRole());
-        existing.setCanManageDigital(staff.getCanManageDigital());
+        if (staff.getRole() != null) existing.setRole(staff.getRole());
+        if (staff.getCanManageDigital() != null) existing.setCanManageDigital(staff.getCanManageDigital());
+        if (staff.getProfileImage() != null) existing.setProfileImage(staff.getProfileImage());
+        if (staff.getPhoneNumber() != null) existing.setPhoneNumber(staff.getPhoneNumber());
+        if (staff.getAddress() != null) existing.setAddress(staff.getAddress());
+        
         if (staff.getPassword() != null && !staff.getPassword().isEmpty()) {
             existing.setPassword(staff.getPassword());
         }

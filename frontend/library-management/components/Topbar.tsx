@@ -1,6 +1,6 @@
 'use client';
 
-import { Search, SlidersHorizontal, Bell, ChevronDown, Menu, Sun, Moon, Mail, Phone, Clock, LogOut } from 'lucide-react';
+import { Search, SlidersHorizontal, Bell, ChevronDown, Menu, Sun, Moon, Mail, Phone, Clock, LogOut, User, HelpCircle } from 'lucide-react';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect, Suspense } from 'react';
@@ -56,6 +56,8 @@ function TopbarContent({ onToggleSidebar, onToggleTheme, isDark }: TopbarProps) 
             case '/management/reports': return t.report;
             case '/management/staff': return t.staff;
             case '/management/books/add': return t.addBook;
+            case '/profile': return "My Profile";
+            case '/help': return "Help Support";
             default:
                 if (pathname?.startsWith('/book/')) return t.books;
                 return t.dashboard;
@@ -138,8 +140,12 @@ function TopbarContent({ onToggleSidebar, onToggleTheme, isDark }: TopbarProps) 
                         onClick={() => setShowProfile(!showProfile)}
                         className="flex items-center gap-3 px-3 py-1.5 border border-gray-100 dark:border-gray-800 rounded-xl cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-gray-700 dark:text-gray-300"
                     >
-                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold text-xs">
-                            {user?.staffName?.[0] || '?'}
+                        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold text-xs overflow-hidden relative border border-teal-200 dark:border-teal-800">
+                            {user?.profileImage ? (
+                                <Image src={`${STORAGE_BASE_URL}${user.profileImage}`} alt="Profile" fill className="object-cover" />
+                            ) : (
+                                user?.staffName?.[0] || '?'
+                            )}
                         </div>
                         <div className="flex flex-col">
                             <span className="text-xs font-bold leading-tight">
@@ -153,8 +159,12 @@ function TopbarContent({ onToggleSidebar, onToggleTheme, isDark }: TopbarProps) 
                     {showProfile && user && (
                         <div className="absolute right-0 mt-2 w-[260px] bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-[24px] shadow-2xl z-50 p-6 animate-in slide-in-from-top-2 duration-300">
                             <div className="flex flex-col items-center gap-3 border-b border-gray-50 dark:border-gray-800 pb-4 mb-4">
-                                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold text-xl">
-                                    {user.staffName?.[0] || '?'}
+                                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center text-white font-bold text-xl overflow-hidden relative shadow-inner border-2 border-white dark:border-gray-800">
+                                    {user.profileImage ? (
+                                        <Image src={`${STORAGE_BASE_URL}${user.profileImage}`} alt="Profile" fill className="object-cover" />
+                                    ) : (
+                                        user.staffName?.[0] || '?'
+                                    )}
                                 </div>
                                 <div className="text-center">
                                     <h3 className="text-base font-bold text-gray-800 dark:text-gray-100">{user.staffName}</h3>
@@ -171,6 +181,15 @@ function TopbarContent({ onToggleSidebar, onToggleTheme, isDark }: TopbarProps) 
                                     <Clock size={14} className="text-gray-400" />
                                     <span>ID: {user.loginId}</span>
                                 </div>
+                            </div>
+
+                            <div className="flex flex-col gap-2 mb-4 border-t border-gray-100 dark:border-gray-800 pt-4 px-2">
+                                <Link href="/profile" onClick={() => setShowProfile(false)} className="flex items-center gap-3 p-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-brand-teal hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-lg transition-colors">
+                                    <User size={16} /> My Profile & Loans
+                                </Link>
+                                <Link href="/help" onClick={() => setShowProfile(false)} className="flex items-center gap-3 p-2 text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-brand-teal hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded-lg transition-colors">
+                                    <HelpCircle size={16} /> Help & FAQ
+                                </Link>
                             </div>
 
                             <button

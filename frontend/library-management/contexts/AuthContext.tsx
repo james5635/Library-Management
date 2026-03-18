@@ -9,6 +9,10 @@ interface User {
     email: string;
     role: 'ADMIN' | 'LIBRARIAN' | 'BORROWER';
     canManageDigital: boolean;
+    profileImage?: string;
+    phoneNumber?: string;
+    address?: string;
+    joinDate?: string;
 }
 
 interface AuthContextType {
