@@ -2,6 +2,8 @@ package com.souchanrojame.librarymanagement.controller;
 
 import com.souchanrojame.librarymanagement.model.Book;
 import com.souchanrojame.librarymanagement.repository.BookRepository;
+import com.souchanrojame.librarymanagement.repository.DigitalAssetRepository;
+import com.souchanrojame.librarymanagement.repository.LoanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class BookController {
     private final BookRepository bookRepository;
+    private final DigitalAssetRepository digitalAssetRepository;
+    private final LoanRepository loanRepository;
 
     @GetMapping
     public List<Book> getAllBooks(@RequestParam(required = false) String search, 
@@ -43,6 +47,11 @@ public class BookController {
 
     @DeleteMapping("/{isbn}")
     public void deleteBook(@PathVariable String isbn) {
+        // Delete associated loans first
+        loanRepository.deleteAll(loanRepository.findByBookIsbn(isbn));
+        // Delete associated digital assets
+        digitalAssetRepository.deleteAll(digitalAssetRepository.findByBookIsbn(isbn));
+        // Then delete the book
         bookRepository.deleteById(isbn);
     }
 }

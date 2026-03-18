@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface LoanRepository extends JpaRepository<Loan, Integer> {
     Optional<Loan> findByReaderEmailAndBookIsbnAndStatus(String email, String isbn, Loan.LoanStatus status);
     java.util.List<Loan> findByReaderEmailOrderByIssueDateDesc(String email);
+    java.util.List<Loan> findByBookIsbn(String isbn);
 }
