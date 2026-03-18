@@ -1,5 +1,5 @@
 plugins {
-	java
+ 	java
 	id("org.springframework.boot") version "3.5.5"
 	id("io.spring.dependency-management") version "1.1.7"
 }
@@ -24,9 +24,16 @@ repositories {
 	mavenCentral()
 }
 
+dependencyManagement {
+	imports {
+		mavenBom("org.springframework.ai:spring-ai-bom:1.0.0-M6")
+	}
+}
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.ai:spring-ai-ollama-spring-boot-starter")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	// developmentOnly("org.springframework.boot:spring-boot-docker-compose")
