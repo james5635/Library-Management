@@ -94,9 +94,9 @@ export default function BookManagementPage() {
                                     </td>
                                     <td className="px-6 py-4">
                                         <div className="flex gap-2">
-                                            <button className="p-2 text-brand-orange hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-lg transition-colors">
+                                            <Link href={`/management/books/edit/${book.isbn}`} className="p-2 text-brand-orange hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-lg transition-colors">
                                                 <Edit2 size={16} />
-                                            </button>
+                                            </Link>
                                             <button
                                                 onClick={() => handleDelete(book.isbn)}
                                                 className="p-2 text-brand-red hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
